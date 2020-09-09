@@ -19,7 +19,7 @@ async function init() {
             channels: ["null", "Fp2", "Fp1", "null"]
         }),
         eegPipes.epoch({
-            duration: 400,
+            duration: 400,interval:400
         }),
         eegPipes.notchFilter({
             nbChannels: 4,
