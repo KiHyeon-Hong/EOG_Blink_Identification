@@ -5,6 +5,8 @@ const {
 const eegPipes = require('@neurosity/pipes');
 const fs = require("fs");
 
+const EOGBlink = 400;
+
 var flag = 0;
 var preFlag = 0;
 
@@ -42,7 +44,7 @@ async function init() {
   ).subscribe(data => {
 
     for(let i = 0; i < data.data[1].length; i++) {
-      if(data.data[1][i] > 400 || data.data[1][i] < -400 || data.data[2][i] > 400 || data.data[2][i] < -400) {
+      if(data.data[1][i] > EOGBlink || data.data[1][i] < -EOGBlink || data.data[2][i] > EOGBlink || data.data[2][i] < -EOGBlink) {
         flag = 1;
         break;
       }
