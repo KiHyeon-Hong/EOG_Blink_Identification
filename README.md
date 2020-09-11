@@ -10,4 +10,4 @@ node version 8.17.0
 
 
 ## 2020-09-11
-EOGMeasure
+EOGMeasurement.js -> 잡파가 섞인 데이터는 기록하지 않는 Ganglion board 측정 코드
