@@ -87,7 +87,7 @@ var identification = function(fp1, fp2) {
     }
   }
 
-  //test
+  //개인식별 특징 추출 test
   var fp1HP = [];
   var fp1LP = [];
   var fp1LHPL = [];
@@ -137,7 +137,57 @@ var identification = function(fp1, fp2) {
   }
 
 
-  
+  //=====
+  var fp2HP = [];
+  var fp2LP = [];
+  var fp2LHPL = [];
+  var fp2LLPL = [];
+  var fp2HPL = [];
+  var fp2LPL = [];
+  var fp2LHPG = [];
+  var fp2LLPG = [];
+  var fp2RHPG = [];
+  var fp2RLPG = [];
+
+  index = 0;
+
+  for(var i = fp2Start[0]; i < fp2Finish[fp2Finish.length - 1];) {
+    fp2HP[index] = fp2Array[fp2Start[0]];
+    fp2LP[index] = fp2Array[fp2Start[0]];
+
+    for(var j = fp2Start[index]; j < fp2Finish[index]; j++) {
+      if(fp2HP[index] < fp2Array[j]) {
+        fp2HP[index] = fp2Array[j];
+        fp2LHPL[index] = j - fp2Start[index];
+      }
+    }
+
+    for(var j = fp2Start[index]; j < fp2Finish[index]; j++) {
+      if(fp2LP[index] > fp2Array[j]) {
+        fp2LP[index] = fp2Array[j];
+        fp2LLPL[index] = j - fp2Middle[index];
+      }
+    }
+
+    fp2HPL[index] = fp2Middle[index] - fp2Start[index];
+    fp2LPL[index] = fp2Finish[index] - fp2Middle[index];
+
+    fp2LHPG[index] = fp2HP[index] / fp2LHPL[index];
+    fp2LLPG[index] = fp2LP[index] / fp2LLPL[index];
+    fp2RHPG[index] = fp2HP[index] / (fp2HPL[index] - fp2LHPL[index]);
+    fp2RLPG[index] = fp2LP[index] / (fp2LPL[index] - fp2LLPL[index]);
+
+    index++;
+
+    if(fp2Start.length == index) {
+      break;
+    }
+
+    i = fp2Start[index];
+  }
+
+
+  //토큰화 test
 
 
 
@@ -151,8 +201,6 @@ var identification = function(fp1, fp2) {
   //console.log('start : ' + fp2Start.length);
   //console.log('middle : ' + fp2Middle.length);
   //console.log('finish : ' + fp2Finish.length);
-
-
 }
 
 exports.identification = identification;
