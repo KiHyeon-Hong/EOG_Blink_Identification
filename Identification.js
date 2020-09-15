@@ -87,15 +87,69 @@ var identification = function(fp1, fp2) {
     }
   }
 
-  console.log('start : ' + fp1Start.length);
-  console.log('middle : ' + fp1Middle.length);
-  console.log('finish : ' + fp1Finish.length);
+  //test
+  var HP = [];
+  var LP = [];
+  var LHPL = [];
+  var LLPL = [];
+  var HPL = [];
+  var LPL = [];
+  var LHPG = [];
+  var LLPG = [];
+  var RHPG = [];
+  var RLPG = [];
 
-  console.log();
+  index = 0;
 
-  console.log('start : ' + fp2Start.length);
-  console.log('middle : ' + fp2Middle.length);
-  console.log('finish : ' + fp2Finish.length);
+  for(var i = fp1Start[0]; i < fp1Finish[fp1Finish.length - 1];) {
+    HP[index] = fp1Array[fp1Start[0]];
+    LP[index] = fp1Array[fp1Start[0]];
+
+    for(var j = fp1Start[index]; j < fp1Finish[index]; j++) {
+      if(HP[index] < fp1Array[j]) {
+        HP[index] = fp1Array[j];
+        LHPL[index] = j - fp1Start[index];
+      }
+    }
+
+    for(var j = fp1Start[index]; j < fp1Finish[index]; j++) {
+      if(LP[index] > fp1Array[j]) {
+        LP[index] = fp1Array[j];
+        LLPL[index] = j - fp1Middle[index];
+      }
+    }
+
+    HPL[index] = fp1Middle[index] - fp1Start[index];
+    LPL[index] = fp1Finish[index] - fp1Middle[index];
+
+    LHPG[index] = HP[index] / LHPL[index];
+    LLPG[index] = LP[index] / LLPL[index];
+    RHPG[index] = HP[index] / (HPL[index] - LHPL[index]);
+    RLPG[index] = LP[index] / (LPL[index] - LLPL[index]);
+
+    index++;
+
+    if(fp1Start.length == index) {
+      break;
+    }
+
+    i = fp1Start[index];
+  }
+
+
+
+
+  //console.log('start : ' + fp1Start.length);
+  //console.log('middle : ' + fp1Middle.length);
+  //console.log('finish : ' + fp1Finish.length);
+
+  //console.log();
+
+  //console.log('start : ' + fp2Start.length);
+  //console.log('middle : ' + fp2Middle.length);
+  //console.log('finish : ' + fp2Finish.length);
+
+
 }
 
 exports.identification = identification;
