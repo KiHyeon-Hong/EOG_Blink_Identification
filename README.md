@@ -3,7 +3,7 @@
 
 ## 2020-09-04
 ganglion board에서 데이터 받아오기 작성
-node version 8.17.0
+node version 8.17.0<br>
 eeg-pipes version 2.0.3
 openbci-observable version 1.0.5
 
