@@ -18,10 +18,13 @@ var identification = function(fp1, fp2) {
   var start = [];
   var middle = [];
   var finish = [];
+
+  var temp = 0;
+
   var index = 0;
 
   for(var i = 0; i < fp1Array.length; i++) {
-    if(fp1Array[i] > BLINKPOINT) {
+    if(temp + 150 < i && fp1Array[i] > BLINKPOINT) {
       for(var j = i; j >= 0; j--) {
         if(fp1Array[j] <= 0) {
           start[index] = j;
@@ -45,12 +48,52 @@ var identification = function(fp1, fp2) {
 
       i = finish[index];
       index++;
+      temp = i;
+    }
+  }
+
+  for(var i = 0; i < fp2Array.length; i++) {
+    if(temp + 150 < i && fp2Array[i] > BLINKPOINT) {
+      for(var j = i; j >= 0; j--) {
+        if(fp2Array[j] <= 0) {
+          start[index] = j;
+          break;
+        }
+      }
+
+      for(var j = start[index] + 1; j < fp2Array.length; j++) {
+        if(fp2Array[j] <= 0) {
+          middle[index] = j;
+          break;
+        }
+      }
+
+      for(var j = middle[index] + 1; j < fp2Array.length; j++) {
+        if(fp2Array[j] >= 0) {
+          finish[index] = j;
+          break;
+        }
+      }
+
+      i = finish[index];
+      index++;
+      temp = i;
     }
   }
 
   console.log('start : ' + start);
   console.log('middle : ' + middle);
   console.log('finish : ' + finish);
+
+  console.log();
+
+  console.log('start : ' + start.length);
+  console.log('middle : ' + middle.length);
+  console.log('finish : ' + finish.length);
+
+  console.log('start : ' + start.length);
+  console.log('middle : ' + middle.length);
+  console.log('finish : ' + finish.length);
 
 
 }
