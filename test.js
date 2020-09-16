@@ -1,12 +1,8 @@
-const fs = require('fs');
-const identification = require('./Identification.js');
+var exec = require('child_process').exec;
 
-var fp1 = fs.readFileSync('./data/dataCh2.txt', 'utf8');
-var fp2 = fs.readFileSync('./data/dataCh3.txt', 'utf8');
-
-var fp1Array = fp1.split(',').map(function(item) {
-    return parseFloat(item, 10);
-});
-var fp2Array = fp2.split(',').map(function(item) {
-    return parseFloat(item, 10);
-});
+const test = () => {
+  exec('./EOGMeasurement.js', function callback(error, stdout, stderr){
+    console.log(error);
+  });
+}
+test();

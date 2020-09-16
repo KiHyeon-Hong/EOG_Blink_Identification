@@ -9,6 +9,7 @@ const EOGBlink = 400;
 
 var flag = 0;
 var preFlag = 0;
+var count = 0;
 
 async function init() {
   const ganglion = new Ganglion({
@@ -71,16 +72,22 @@ async function init() {
         }
        //console.log("append ------  ./data/dataCh3.txt")
       })
-
+      count++;
     }
     else {
       if(preFlag == 0) {
         console.log('수면케어 안대 착용이 비 정상적입니다(데이터를 기록하지 않습니다).');
       }
       preFlag = 1;
+
     }
 
   })
 }
 
 init();
+
+setInterval(() => {
+  if(count > 15)
+    process.exit();
+}, 1000);

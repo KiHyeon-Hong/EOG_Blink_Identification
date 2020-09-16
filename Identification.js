@@ -188,19 +188,19 @@ var identification = function(fp1, fp2) {
 
 
   //토큰화 test
+  console.log(fp1HP);
 
 
 
-
-  //console.log('start : ' + fp1Start.length);
-  //console.log('middle : ' + fp1Middle.length);
-  //console.log('finish : ' + fp1Finish.length);
+  console.log('start : ' + fp1Start.length);
+  console.log('middle : ' + fp1Middle.length);
+  console.log('finish : ' + fp1Finish.length);
 
   //console.log();
 
-  //console.log('start : ' + fp2Start.length);
-  //console.log('middle : ' + fp2Middle.length);
-  //console.log('finish : ' + fp2Finish.length);
+  console.log('start : ' + fp2Start.length);
+  console.log('middle : ' + fp2Middle.length);
+  console.log('finish : ' + fp2Finish.length);
 }
 
 exports.identification = identification;
