@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 var BLINKPOINT = 100;
 
 var register = function(fp1, fp2) {
@@ -191,8 +193,6 @@ var register = function(fp1, fp2) {
   var token1 = tokenCreate(fp1HP, fp1LP, fp1LHPL, fp1LLPL, fp1HPL, fp1LPL, fp1LHPG, fp1LLPG, fp1RHPG, fp1RLPG);
   var token2 = tokenCreate(fp2HP, fp2LP, fp2LHPL, fp2LLPL, fp2HPL, fp2LPL, fp2LHPG, fp2LLPG, fp2RHPG, fp2RLPG);
 
-  
-
   console.log('start : ' + fp1Start.length);
   console.log('middle : ' + fp1Middle.length);
   console.log('finish : ' + fp1Finish.length);
@@ -202,6 +202,10 @@ var register = function(fp1, fp2) {
   console.log('start : ' + fp2Start.length);
   console.log('middle : ' + fp2Middle.length);
   console.log('finish : ' + fp2Finish.length);
+
+
+  fs.writeFileSync('./files/data1.json', token1, 'utf8');
+  fs.writeFileSync('./files/data2.json', token2, 'utf8');
 }
 
 var tokenCreate = function(HP, LP, LHPL, LLPL, HPL, LPL, LHPG, LLPG, RHPG, RLPG) {
