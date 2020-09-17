@@ -5,7 +5,7 @@ const {
 const eegPipes = require('@neurosity/pipes');
 const fs = require("fs");
 
-const EOGBlink = 400;
+const EOGBlink = 600;
 
 var flag = 0;
 var preFlag = 0;

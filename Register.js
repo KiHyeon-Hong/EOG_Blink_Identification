@@ -1,6 +1,6 @@
 var BLINKPOINT = 100;
 
-var identification = function(fp1, fp2) {
+var register = function(fp1, fp2) {
 
   var fp1Array = fp1.split(',').map(function(item) {
       return parseFloat(item, 10);
@@ -188,12 +188,10 @@ var identification = function(fp1, fp2) {
 
 
   //토큰화 test
-  console.log(fp1HP);
-
   var token1 = tokenCreate(fp1HP, fp1LP, fp1LHPL, fp1LLPL, fp1HPL, fp1LPL, fp1LHPG, fp1LLPG, fp1RHPG, fp1RLPG);
   var token2 = tokenCreate(fp2HP, fp2LP, fp2LHPL, fp2LLPL, fp2HPL, fp2LPL, fp2LHPG, fp2LLPG, fp2RHPG, fp2RLPG);
 
-
+  
 
   console.log('start : ' + fp1Start.length);
   console.log('middle : ' + fp1Middle.length);
@@ -253,4 +251,4 @@ var tokenCreate = function(HP, LP, LHPL, LLPL, HPL, LPL, LHPG, LLPG, RHPG, RLPG)
   return obj;
 }
 
-exports.identification = identification;
+exports.register = register;
