@@ -101,6 +101,10 @@ var register = function(fp1, fp2) {
   var fp1RHPG = [];
   var fp1RLPG = [];
 
+  var fp1Blink = [];
+  var blinkCheck = 0;
+  var preBlinkCheck = 0;
+
   index = 0;
 
   for(var i = fp1Start[0]; i < fp1Finish[fp1Finish.length - 1];) {
@@ -187,6 +191,10 @@ var register = function(fp1, fp2) {
 
     i = fp2Start[index];
   }
+
+  console.log('==============================');
+  console.log(fp1Start);
+  console.log('==============================');
 
 
   //토큰화 test
