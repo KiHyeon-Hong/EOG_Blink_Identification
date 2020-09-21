@@ -284,14 +284,12 @@ var minMaxDelete = (data, check, count) => {
     for(var i = 0; i < count; i++){
       var min = data.indexOf(Math.min.apply(null, data));
       data.splice(min, 1);
-      console.log("min");
     }
   }
   else {
     for(var i = 0; i < count; i++){
       var max = data.indexOf(Math.max.apply(null, data));
       data.splice(max, 1);
-      console.log("max");
     }
   }
   return data;

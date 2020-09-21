@@ -104,8 +104,10 @@ var identification = function(fp1, fp2) {
   index = 0;
 
   for(var i = fp1Start[0]; i < fp1Finish[fp1Finish.length - 1];) {
-    fp1HP[index] = fp1Array[fp1Start[0]];
-    fp1LP[index] = fp1Array[fp1Start[0]];
+    //fp1HP[index] = fp1Array[fp1Start[0]];
+    //fp1LP[index] = fp1Array[fp1Start[0]];
+    fp1HP[index] = 0;
+    fp1LP[index] = 0;
 
     for(var j = fp1Start[index]; j < fp1Finish[index]; j++) {
       if(fp1HP[index] < fp1Array[j]) {
@@ -154,8 +156,10 @@ var identification = function(fp1, fp2) {
   index = 0;
 
   for(var i = fp2Start[0]; i < fp2Finish[fp2Finish.length - 1];) {
-    fp2HP[index] = fp2Array[fp2Start[0]];
-    fp2LP[index] = fp2Array[fp2Start[0]];
+    //fp2HP[index] = fp2Array[fp2Start[0]];
+    //fp2LP[index] = fp2Array[fp2Start[0]];
+    fp2HP[index] = 0;
+    fp2LP[index] = 0;
 
     for(var j = fp2Start[index]; j < fp2Finish[index]; j++) {
       if(fp2HP[index] < fp2Array[j]) {
@@ -189,11 +193,75 @@ var identification = function(fp1, fp2) {
   }
 
 
-  //토큰화 test
-  console.log(fp1HP);
 
-  var token1 = tokenCreate(fp1HP, fp1LP, fp1LHPL, fp1LLPL, fp1HPL, fp1LPL, fp1LHPG, fp1LLPG, fp1RHPG, fp1RLPG);
-  var token2 = tokenCreate(fp2HP, fp2LP, fp2LHPL, fp2LLPL, fp2HPL, fp2LPL, fp2LHPG, fp2LLPG, fp2RHPG, fp2RLPG);
+  //Blink data 추가
+  var fp1Blink = [];
+  var fp2Blink = [];
+  var fp1NotBlink = [];
+  var fp2NotBlink = [];
+
+  var blinkCheck = 0;
+  var preBlinkCheck = 0;
+
+  for(let i = 0; i < fp1Finish.length; i++){
+    fp1Blink[i] = fp1Finish[i] - fp1Start[i];
+  }
+
+  blinkCheck = 0;
+  preBlinkCheck = 0;
+
+  for(let i = 0; i < fp1Finish.length - 1; i++){
+    fp1NotBlink[i] = fp1Start[i + 1] - fp1Finish[i];
+  }
+
+  blinkCheck = 0;
+  preBlinkCheck = 0;
+
+  for(let i = 0; i < fp2Finish.length; i++){
+    fp2Blink[i] = fp2Finish[i] - fp2Start[i];
+  }
+
+  blinkCheck = 0;
+  preBlinkCheck = 0;
+
+  for(let i = 0; i < fp2Finish.length - 1; i++){
+    fp2NotBlink[i] = fp2Start[i + 1] - fp2Finish[i];
+  }
+
+  // console.log('==============================');
+  // console.log(fp1Start);
+  // console.log('==============================');
+  // console.log(fp1Middle);
+  // console.log('==============================');
+  // console.log(fp1Finish);
+  // console.log('==============================');
+  // console.log(fp1Blink);
+  // console.log('==============================');
+
+  // console.log("fp1HP : ");
+  // console.log(fp1HP);
+  // console.log("fp1LP : ");
+  // console.log(fp1LP);
+  // console.log("fp1LHPL : ");
+  // console.log(fp1LHPL);
+  // console.log("fp1LLPL : ");
+  // console.log(fp1LLPL);
+  // console.log("fp1HPL : ");
+  // console.log(fp1HPL);
+  // console.log("fp1LPL : ");
+  // console.log(fp1LPL);
+  // console.log("fp1LHPG : ");
+  // console.log(fp1LHPG);
+  // console.log("fp1LLPG : ");
+  // console.log(fp1LLPG);
+  // console.log("fp1RHPG : ");
+  // console.log(fp1RHPG);
+  // console.log("fp1RLPG : ");
+  // console.log(fp1RLPG);
+
+  //토큰화 test
+  var token1 = tokenCreate(fp1HP, fp1LP, fp1LHPL, fp1LLPL, fp1HPL, fp1LPL, fp1LHPG, fp1LLPG, fp1RHPG, fp1RLPG, fp1Blink, fp1NotBlink);
+  var token2 = tokenCreate(fp2HP, fp2LP, fp2LHPL, fp2LLPL, fp2HPL, fp2LPL, fp2LHPG, fp2LLPG, fp2RHPG, fp2RLPG, fp2Blink, fp2NotBlink);
 
   token1 = JSON.parse(token1);
   token2 = JSON.parse(token2);
@@ -228,6 +296,10 @@ var identification = function(fp1, fp2) {
   console.log("LLPG : " + (token1.LLPG / originToken1.LLPG));
   console.log("RHPG : " + (token1.RHPG / originToken1.RHPG));
   console.log("RLPG : " + (token1.RLPG / originToken1.RLPG));
+
+  console.log("blink : " + (token1.blink / originToken1.blink));
+  console.log("notBlink : " + (token1.notBlink / originToken1.notBlink));
+
   console.log("==============================");
   console.log("HP : " + (token2.HP / originToken2.HP));
   console.log("LP : " + (token2.LP / originToken2.LP));
@@ -240,10 +312,13 @@ var identification = function(fp1, fp2) {
   console.log("RHPG : " + (token2.RHPG / originToken2.RHPG));
   console.log("RLPG : " + (token2.RLPG / originToken2.RLPG));
 
-  if(((token1.HP / originToken1.HP) > 0.8 && (token1.HP / originToken1.HP) < 1.2) && ((token1.LP / originToken1.LP) > 0.8 && (token1.LP / originToken1.LP) < 1.2) && ((token1.LHPL / originToken1.LHPL) > 0.8 && (token1.LHPL / originToken1.LHPL) < 1.2) && ((token1.LLPL / originToken1.LLPL) > 0.8 && (token1.LLPL / originToken1.LLPL) < 1.2) && ((token1.HPL / originToken1.HPL) > 0.8 && (token1.HPL / originToken1.HPL) < 1.2) && ((token1.LPL / originToken1.LPL) > 0.8 && (token1.LPL / originToken1.LPL) < 1.2) && ((token1.LHPG / originToken1.LHPG) > 0.8 && (token1.LHPG / originToken1.LHPG) < 1.2) && ((token1.LLPG / originToken1.LLPG) > 0.8 && (token1.LLPG / originToken1.LLPG) < 1.2) && ((token1.RHPG / originToken1.RHPG) > 0.8 && (token1.RHPG / originToken1.RHPG) < 1.2) && ((token1.RLPG / originToken1.RLPG) > 0.8 && (token1.RLPG / originToken1.RLPG) < 1.2)) {
+  console.log("blink : " + (token2.blink / originToken2.blink));
+  console.log("notBlink : " + (token2.notBlink / originToken2.notBlink));
+
+  if(((token1.HP / originToken1.HP) > 0.8 && (token1.HP / originToken1.HP) < 1.2) && ((token1.LP / originToken1.LP) > 0.8 && (token1.LP / originToken1.LP) < 1.2) && ((token1.LHPL / originToken1.LHPL) > 0.8 && (token1.LHPL / originToken1.LHPL) < 1.2) && ((token1.LLPL / originToken1.LLPL) > 0.8 && (token1.LLPL / originToken1.LLPL) < 1.2) && ((token1.HPL / originToken1.HPL) > 0.8 && (token1.HPL / originToken1.HPL) < 1.2) && ((token1.LPL / originToken1.LPL) > 0.8 && (token1.LPL / originToken1.LPL) < 1.2) && ((token1.LHPG / originToken1.LHPG) > 0.8 && (token1.LHPG / originToken1.LHPG) < 1.2) && ((token1.LLPG / originToken1.LLPG) > 0.8 && (token1.LLPG / originToken1.LLPG) < 1.2) && ((token1.RHPG / originToken1.RHPG) > 0.8 && (token1.RHPG / originToken1.RHPG) < 1.2) && ((token1.RLPG / originToken1.RLPG) > 0.8 && (token1.RLPG / originToken1.RLPG) < 1.2) && ((token1.blink / originToken1.blink) > 0.8 && (token1.blink / originToken1.blink) < 1.2) && ((token1.notBlink / originToken1.notBlink) > 0.8 && (token1.notBlink / originToken1.notBlink) < 1.2)) {
     console.log('fp1 중복으로 개인식별');
   }
-  else if(((token2.HP / originToken2.HP) > 0.8 && (token2.HP / originToken2.HP) < 1.2) && ((token2.LP / originToken2.LP) > 0.8 && (token2.LP / originToken2.LP) < 1.2) && ((token2.LHPL / originToken2.LHPL) > 0.8 && (token2.LHPL / originToken2.LHPL) < 1.2) && ((token2.LLPL / originToken2.LLPL) > 0.8 && (token2.LLPL / originToken2.LLPL) < 1.2) && ((token2.HPL / originToken2.HPL) > 0.8 && (token2.HPL / originToken2.HPL) < 1.2) && ((token2.LPL / originToken2.LPL) > 0.8 && (token2.LPL / originToken2.LPL) < 1.2) && ((token2.LHPG / originToken2.LHPG) > 0.8 && (token2.LHPG / originToken2.LHPG) < 1.2) && ((token2.LLPG / originToken2.LLPG) > 0.8 && (token2.LLPG / originToken2.LLPG) < 1.2) && ((token2.RHPG / originToken2.RHPG) > 0.8 && (token2.RHPG / originToken2.RHPG) < 1.2) && ((token2.RLPG / originToken2.RLPG) > 0.8 && (token2.RLPG / originToken2.RLPG) < 1.2)) {
+  else if(((token2.HP / originToken2.HP) > 0.8 && (token2.HP / originToken2.HP) < 1.2) && ((token2.LP / originToken2.LP) > 0.8 && (token2.LP / originToken2.LP) < 1.2) && ((token2.LHPL / originToken2.LHPL) > 0.8 && (token2.LHPL / originToken2.LHPL) < 1.2) && ((token2.LLPL / originToken2.LLPL) > 0.8 && (token2.LLPL / originToken2.LLPL) < 1.2) && ((token2.HPL / originToken2.HPL) > 0.8 && (token2.HPL / originToken2.HPL) < 1.2) && ((token2.LPL / originToken2.LPL) > 0.8 && (token2.LPL / originToken2.LPL) < 1.2) && ((token2.LHPG / originToken2.LHPG) > 0.8 && (token2.LHPG / originToken2.LHPG) < 1.2) && ((token2.LLPG / originToken2.LLPG) > 0.8 && (token2.LLPG / originToken2.LLPG) < 1.2) && ((token2.RHPG / originToken2.RHPG) > 0.8 && (token2.RHPG / originToken2.RHPG) < 1.2) && ((token2.RLPG / originToken2.RLPG) > 0.8 && (token2.RLPG / originToken2.RLPG) < 1.2) && ((token2.blink / originToken2.blink) > 0.8 && (token2.blink / originToken2.blink) < 1.2) && ((token2.notBlink / originToken2.notBlink) > 0.8 && (token2.notBlink / originToken2.notBlink) < 1.2)) {
     console.log('fp2 중복으로 개인식별');
   }
   else {
@@ -252,7 +327,49 @@ var identification = function(fp1, fp2) {
 
 }
 
-var tokenCreate = function(HP, LP, LHPL, LLPL, HPL, LPL, LHPG, LLPG, RHPG, RLPG) {
+var minMaxDelete = (data, check, count) => {
+  if(check == 0){
+    for(var i = 0; i < count; i++){
+      var min = data.indexOf(Math.min.apply(null, data));
+      data.splice(min, 1);
+    }
+  }
+  else {
+    for(var i = 0; i < count; i++){
+      var max = data.indexOf(Math.max.apply(null, data));
+      data.splice(max, 1);
+    }
+  }
+  return data;
+}
+
+var tokenCreate = function(HP, LP, LHPL, LLPL, HPL, LPL, LHPG, LLPG, RHPG, RLPG, blink, notBlink) {
+  HP = minMaxDelete(HP, 0, 2);
+  LP = minMaxDelete(LP, 0, 2);
+  LHPL = minMaxDelete(LHPL, 0, 2);
+  LLPL = minMaxDelete(LLPL, 0, 2);
+  HPL = minMaxDelete(HPL, 0, 2);
+  LPL = minMaxDelete(LPL, 0, 2);
+  LHPG = minMaxDelete(LHPG, 0, 2);
+  LLPG = minMaxDelete(LLPG, 0, 2);
+  RHPG = minMaxDelete(RHPG, 0, 2);
+  RLPG = minMaxDelete(RLPG, 0, 2);
+  blink = minMaxDelete(blink, 0, 2);
+  notBlink = minMaxDelete(notBlink, 0, 2);
+
+  HP = minMaxDelete(HP, 1, 2);
+  LP = minMaxDelete(LP, 1, 2);
+  LHPL = minMaxDelete(LHPL, 1, 2);
+  LLPL = minMaxDelete(LLPL, 1, 2);
+  HPL = minMaxDelete(HPL, 1, 2);
+  LPL = minMaxDelete(LPL, 1, 2);
+  LHPG = minMaxDelete(LHPG, 1, 2);
+  LLPG = minMaxDelete(LLPG, 1, 2);
+  RHPG = minMaxDelete(RHPG, 1, 2);
+  RLPG = minMaxDelete(RLPG, 1, 2);
+  blink = minMaxDelete(blink, 1, 2);
+  notBlink = minMaxDelete(notBlink, 1, 2);
+
   var token;
 
   var tempHP = 0;
@@ -265,6 +382,9 @@ var tokenCreate = function(HP, LP, LHPL, LLPL, HPL, LPL, LHPG, LLPG, RHPG, RLPG)
   var tempLLPG = 0;
   var tempRHPG = 0;
   var tempRLPG = 0;
+
+  var tempBlink = 0;
+  var tempNotBlink = 0;
 
   for(var i = 0; i < HP.length; i++) {
     tempHP += HP[i];
@@ -279,6 +399,14 @@ var tokenCreate = function(HP, LP, LHPL, LLPL, HPL, LPL, LHPG, LLPG, RHPG, RLPG)
     tempRLPG += RLPG[i];
   }
 
+  for(var i = 0; i < blink.length; i++) {
+    tempBlink += blink[i];
+  }
+
+  for(var i = 0; i < notBlink.length; i++) {
+    tempNotBlink += notBlink[i];
+  }
+
   tempHP = tempHP / HP.length;
   tempLP = tempLP/  LP.length;
   tempLHPL = tempLHPL / LHPL.length;
@@ -290,10 +418,13 @@ var tokenCreate = function(HP, LP, LHPL, LLPL, HPL, LPL, LHPG, LLPG, RHPG, RLPG)
   tempRHPG = tempRHPG / RHPG.length;
   tempRLPG = tempRLPG / RLPG.length;
 
-  var obj = {'HP':tempHP, 'LP':tempLP, 'LHPL':tempLHPL, 'LLPL':tempLLPL, 'HPL':tempHPL, 'LPL':tempLPL, 'LHPG':tempLHPG, 'LLPG':tempLLPG, 'RHPG':tempRHPG, 'RLPG':tempRLPG};
+  tempBlink = tempBlink / blink.length;
+  tempNotBlink = tempNotBlink / notBlink.length;
+
+  var obj = {'HP':tempHP, 'LP':tempLP, 'LHPL':tempLHPL, 'LLPL':tempLLPL, 'HPL':tempHPL, 'LPL':tempLPL, 'LHPG':tempLHPG, 'LLPG':tempLLPG, 'RHPG':tempRHPG, 'RLPG':tempRLPG, 'blink':tempBlink, 'notBlink':tempNotBlink};
   obj = JSON.stringify(obj);
 
-  console.log('개인식별 토큰 생성 완료');
+  //console.log('개인식별 토큰 생성 완료');
   console.log(obj);
 
   return obj;
