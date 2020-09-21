@@ -104,8 +104,10 @@ var register = function(fp1, fp2) {
   index = 0;
 
   for(var i = fp1Start[0]; i < fp1Finish[fp1Finish.length - 1];) {
-    fp1HP[index] = fp1Array[fp1Start[0]];
-    fp1LP[index] = fp1Array[fp1Start[0]];
+    //fp1HP[index] = fp1Array[fp1Start[0]];
+    //fp1LP[index] = fp1Array[fp1Start[0]];
+    fp1HP[index] = 0;
+    fp1LP[index] = 0;
 
     for(var j = fp1Start[index]; j < fp1Finish[index]; j++) {
       if(fp1HP[index] < fp1Array[j]) {
@@ -154,8 +156,10 @@ var register = function(fp1, fp2) {
   index = 0;
 
   for(var i = fp2Start[0]; i < fp2Finish[fp2Finish.length - 1];) {
-    fp2HP[index] = fp2Array[fp2Start[0]];
-    fp2LP[index] = fp2Array[fp2Start[0]];
+    //fp2HP[index] = fp2Array[fp2Start[0]];
+    //fp2LP[index] = fp2Array[fp2Start[0]];
+    fp2HP[index] = 0;
+    fp2LP[index] = 0;
 
     for(var j = fp2Start[index]; j < fp2Finish[index]; j++) {
       if(fp2HP[index] < fp2Array[j]) {
@@ -224,14 +228,36 @@ var register = function(fp1, fp2) {
     fp2NotBlink[i] = fp2Start[i + 1] - fp2Finish[i];
   }
 
-  console.log('==============================');
-  console.log(fp1Start);
-  console.log('==============================');
-  console.log(fp1Finish);
-  console.log('==============================');
-  console.log(fp1NotBlink);
-  console.log('==============================');
+  // console.log('==============================');
+  // console.log(fp1Start);
+  // console.log('==============================');
+  // console.log(fp1Middle);
+  // console.log('==============================');
+  // console.log(fp1Finish);
+  // console.log('==============================');
+  // console.log(fp1Blink);
+  // console.log('==============================');
 
+  // console.log("fp1HP : ");
+  // console.log(fp1HP);
+  // console.log("fp1LP : ");
+  // console.log(fp1LP);
+  // console.log("fp1LHPL : ");
+  // console.log(fp1LHPL);
+  // console.log("fp1LLPL : ");
+  // console.log(fp1LLPL);
+  // console.log("fp1HPL : ");
+  // console.log(fp1HPL);
+  // console.log("fp1LPL : ");
+  // console.log(fp1LPL);
+  // console.log("fp1LHPG : ");
+  // console.log(fp1LHPG);
+  // console.log("fp1LLPG : ");
+  // console.log(fp1LLPG);
+  // console.log("fp1RHPG : ");
+  // console.log(fp1RHPG);
+  // console.log("fp1RLPG : ");
+  // console.log(fp1RLPG);
 
   //토큰화 test
   var token1 = tokenCreate(fp1HP, fp1LP, fp1LHPL, fp1LLPL, fp1HPL, fp1LPL, fp1LHPG, fp1LLPG, fp1RHPG, fp1RLPG, fp1Blink, fp1NotBlink);
@@ -252,7 +278,52 @@ var register = function(fp1, fp2) {
   fs.writeFileSync('./files/data2.json', token2, 'utf8');
 }
 
+//minDelete 0, maxDelete 1
+var minMaxDelete = (data, check, count) => {
+  if(check == 0){
+    for(var i = 0; i < count; i++){
+      var min = data.indexOf(Math.min.apply(null, data));
+      data.splice(min, 1);
+      console.log("min");
+    }
+  }
+  else {
+    for(var i = 0; i < count; i++){
+      var max = data.indexOf(Math.max.apply(null, data));
+      data.splice(max, 1);
+      console.log("max");
+    }
+  }
+  return data;
+}
+
 var tokenCreate = function(HP, LP, LHPL, LLPL, HPL, LPL, LHPG, LLPG, RHPG, RLPG, blink, notBlink) {
+  HP = minMaxDelete(HP, 0, 2);
+  LP = minMaxDelete(LP, 0, 2);
+  LHPL = minMaxDelete(LHPL, 0, 2);
+  LLPL = minMaxDelete(LLPL, 0, 2);
+  HPL = minMaxDelete(HPL, 0, 2);
+  LPL = minMaxDelete(LPL, 0, 2);
+  LHPG = minMaxDelete(LHPG, 0, 2);
+  LLPG = minMaxDelete(LLPG, 0, 2);
+  RHPG = minMaxDelete(RHPG, 0, 2);
+  RLPG = minMaxDelete(RLPG, 0, 2);
+  blink = minMaxDelete(blink, 0, 2);
+  notBlink = minMaxDelete(notBlink, 0, 2);
+
+  HP = minMaxDelete(HP, 1, 2);
+  LP = minMaxDelete(LP, 1, 2);
+  LHPL = minMaxDelete(LHPL, 1, 2);
+  LLPL = minMaxDelete(LLPL, 1, 2);
+  HPL = minMaxDelete(HPL, 1, 2);
+  LPL = minMaxDelete(LPL, 1, 2);
+  LHPG = minMaxDelete(LHPG, 1, 2);
+  LLPG = minMaxDelete(LLPG, 1, 2);
+  RHPG = minMaxDelete(RHPG, 1, 2);
+  RLPG = minMaxDelete(RLPG, 1, 2);
+  blink = minMaxDelete(blink, 1, 2);
+  notBlink = minMaxDelete(notBlink, 1, 2);
+
   var token;
 
   var tempHP = 0;
@@ -307,7 +378,7 @@ var tokenCreate = function(HP, LP, LHPL, LLPL, HPL, LPL, LHPG, LLPG, RHPG, RLPG,
   var obj = {'HP':tempHP, 'LP':tempLP, 'LHPL':tempLHPL, 'LLPL':tempLLPL, 'HPL':tempHPL, 'LPL':tempLPL, 'LHPG':tempLHPG, 'LLPG':tempLLPG, 'RHPG':tempRHPG, 'RLPG':tempRLPG, 'blink':tempBlink, 'notBlink':tempNotBlink};
   obj = JSON.stringify(obj);
 
-  console.log('개인식별 토큰 생성 완료');
+  //console.log('개인식별 토큰 생성 완료');
   console.log(obj);
 
   return obj;
