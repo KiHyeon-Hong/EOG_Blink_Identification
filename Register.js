@@ -101,10 +101,6 @@ var register = function(fp1, fp2) {
   var fp1RHPG = [];
   var fp1RLPG = [];
 
-  var fp1Blink = [];
-  var blinkCheck = 0;
-  var preBlinkCheck = 0;
-
   index = 0;
 
   for(var i = fp1Start[0]; i < fp1Finish[fp1Finish.length - 1];) {
@@ -192,14 +188,54 @@ var register = function(fp1, fp2) {
     i = fp2Start[index];
   }
 
+
+
+  //Blink data 추가
+  var fp1Blink = [];
+  var fp2Blink = [];
+  var fp1NotBlink = [];
+  var fp2NotBlink = [];
+
+  var blinkCheck = 0;
+  var preBlinkCheck = 0;
+
+  for(let i = 0; i < fp1Finish.length; i++){
+    fp1Blink[i] = fp1Finish[i] - fp1Start[i];
+  }
+
+  blinkCheck = 0;
+  preBlinkCheck = 0;
+
+  for(let i = 0; i < fp1Finish.length - 1; i++){
+    fp1NotBlink[i] = fp1Start[i + 1] - fp1Finish[i];
+  }
+
+  blinkCheck = 0;
+  preBlinkCheck = 0;
+
+  for(let i = 0; i < fp2Finish.length; i++){
+    fp2Blink[i] = fp2Finish[i] - fp2Start[i];
+  }
+
+  blinkCheck = 0;
+  preBlinkCheck = 0;
+
+  for(let i = 0; i < fp2Finish.length - 1; i++){
+    fp2NotBlink[i] = fp2Start[i + 1] - fp2Finish[i];
+  }
+
   console.log('==============================');
   console.log(fp1Start);
+  console.log('==============================');
+  console.log(fp1Finish);
+  console.log('==============================');
+  console.log(fp1NotBlink);
   console.log('==============================');
 
 
   //토큰화 test
-  var token1 = tokenCreate(fp1HP, fp1LP, fp1LHPL, fp1LLPL, fp1HPL, fp1LPL, fp1LHPG, fp1LLPG, fp1RHPG, fp1RLPG);
-  var token2 = tokenCreate(fp2HP, fp2LP, fp2LHPL, fp2LLPL, fp2HPL, fp2LPL, fp2LHPG, fp2LLPG, fp2RHPG, fp2RLPG);
+  var token1 = tokenCreate(fp1HP, fp1LP, fp1LHPL, fp1LLPL, fp1HPL, fp1LPL, fp1LHPG, fp1LLPG, fp1RHPG, fp1RLPG, fp1Blink, fp1NotBlink);
+  var token2 = tokenCreate(fp2HP, fp2LP, fp2LHPL, fp2LLPL, fp2HPL, fp2LPL, fp2LHPG, fp2LLPG, fp2RHPG, fp2RLPG, fp2Blink, fp2NotBlink);
 
   console.log('start : ' + fp1Start.length);
   console.log('middle : ' + fp1Middle.length);
@@ -216,7 +252,7 @@ var register = function(fp1, fp2) {
   fs.writeFileSync('./files/data2.json', token2, 'utf8');
 }
 
-var tokenCreate = function(HP, LP, LHPL, LLPL, HPL, LPL, LHPG, LLPG, RHPG, RLPG) {
+var tokenCreate = function(HP, LP, LHPL, LLPL, HPL, LPL, LHPG, LLPG, RHPG, RLPG, blink, notBlink) {
   var token;
 
   var tempHP = 0;
@@ -229,6 +265,9 @@ var tokenCreate = function(HP, LP, LHPL, LLPL, HPL, LPL, LHPG, LLPG, RHPG, RLPG)
   var tempLLPG = 0;
   var tempRHPG = 0;
   var tempRLPG = 0;
+
+  var tempBlink = 0;
+  var tempNotBlink = 0;
 
   for(var i = 0; i < HP.length; i++) {
     tempHP += HP[i];
@@ -243,6 +282,14 @@ var tokenCreate = function(HP, LP, LHPL, LLPL, HPL, LPL, LHPG, LLPG, RHPG, RLPG)
     tempRLPG += RLPG[i];
   }
 
+  for(var i = 0; i < blink.length; i++) {
+    tempBlink += blink[i];
+  }
+
+  for(var i = 0; i < notBlink.length; i++) {
+    tempNotBlink += notBlink[i];
+  }
+
   tempHP = tempHP / HP.length;
   tempLP = tempLP/  LP.length;
   tempLHPL = tempLHPL / LHPL.length;
@@ -254,7 +301,10 @@ var tokenCreate = function(HP, LP, LHPL, LLPL, HPL, LPL, LHPG, LLPG, RHPG, RLPG)
   tempRHPG = tempRHPG / RHPG.length;
   tempRLPG = tempRLPG / RLPG.length;
 
-  var obj = {'HP':tempHP, 'LP':tempLP, 'LHPL':tempLHPL, 'LLPL':tempLLPL, 'HPL':tempHPL, 'LPL':tempLPL, 'LHPG':tempLHPG, 'LLPG':tempLLPG, 'RHPG':tempRHPG, 'RLPG':tempRLPG};
+  tempBlink = tempBlink / blink.length;
+  tempNotBlink = tempNotBlink / notBlink.length;
+
+  var obj = {'HP':tempHP, 'LP':tempLP, 'LHPL':tempLHPL, 'LLPL':tempLLPL, 'HPL':tempHPL, 'LPL':tempLPL, 'LHPG':tempLHPG, 'LLPG':tempLLPG, 'RHPG':tempRHPG, 'RLPG':tempRLPG, 'blink':tempBlink, 'notBlink':tempNotBlink};
   obj = JSON.stringify(obj);
 
   console.log('개인식별 토큰 생성 완료');
