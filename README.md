@@ -14,3 +14,5 @@ openbci-observable version 1.0.5<br>
 ## 2020-09-11
 EOGMeasurement.js -> 잡파가 섞인 데이터는 기록하지 않는 Ganglion board 측정 코드
 
+## 2020-09-21
+![EOG Blink](./images/EOG.png)
