@@ -1,3 +1,8 @@
+const gpio = require('node-wiring-pi');
+const LED = 29;
+gpio.setup('wpi');
+gpio.pinMode(LED, gpio.OUTPUT);
+
 const {
     Ganglion
 } = require('openbci-observable');
@@ -57,6 +62,7 @@ async function init() {
     if(flag == 0) {
       if(preFlag == 1) {
         console.log('수면케어 안대 착용이 정상적입니다(데이터를 기록합니다).');
+        gpio.digitalWrite(LED, 1);
       }
       preFlag = 0;
 
@@ -77,6 +83,7 @@ async function init() {
     else {
       if(preFlag == 0) {
         console.log('수면케어 안대 착용이 비 정상적입니다(데이터를 기록하지 않습니다).');
+        gpio.digitalWrite(LED, 0);
       }
       preFlag = 1;
 
@@ -88,6 +95,8 @@ async function init() {
 init();
 
 setInterval(() => {
-  if(count > 15)
+  if(count > 15) {
+    gpio.digitalWrite(LED, 0)
     process.exit();
+  }
 }, 1000);

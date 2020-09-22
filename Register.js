@@ -263,15 +263,15 @@ var register = function(fp1, fp2) {
   var token1 = tokenCreate(fp1HP, fp1LP, fp1LHPL, fp1LLPL, fp1HPL, fp1LPL, fp1LHPG, fp1LLPG, fp1RHPG, fp1RLPG, fp1Blink, fp1NotBlink);
   var token2 = tokenCreate(fp2HP, fp2LP, fp2LHPL, fp2LLPL, fp2HPL, fp2LPL, fp2LHPG, fp2LLPG, fp2RHPG, fp2RLPG, fp2Blink, fp2NotBlink);
 
-  console.log('start : ' + fp1Start.length);
-  console.log('middle : ' + fp1Middle.length);
-  console.log('finish : ' + fp1Finish.length);
-
-  //console.log();
-
-  console.log('start : ' + fp2Start.length);
-  console.log('middle : ' + fp2Middle.length);
-  console.log('finish : ' + fp2Finish.length);
+  // console.log('start : ' + fp1Start.length);
+  // console.log('middle : ' + fp1Middle.length);
+  // console.log('finish : ' + fp1Finish.length);
+  //
+  // //console.log();
+  //
+  // console.log('start : ' + fp2Start.length);
+  // console.log('middle : ' + fp2Middle.length);
+  // console.log('finish : ' + fp2Finish.length);
 
 
   fs.writeFileSync('./files/data1.json', token1, 'utf8');
@@ -377,7 +377,7 @@ var tokenCreate = function(HP, LP, LHPL, LLPL, HPL, LPL, LHPG, LLPG, RHPG, RLPG,
   obj = JSON.stringify(obj);
 
   //console.log('개인식별 토큰 생성 완료');
-  console.log(obj);
+  //console.log(obj);
 
   return obj;
 }

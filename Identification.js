@@ -267,15 +267,15 @@ var identification = function(fp1, fp2) {
   token2 = JSON.parse(token2);
 
 
-  console.log('start : ' + fp1Start.length);
-  console.log('middle : ' + fp1Middle.length);
-  console.log('finish : ' + fp1Finish.length);
-
-  //console.log();
-
-  console.log('start : ' + fp2Start.length);
-  console.log('middle : ' + fp2Middle.length);
-  console.log('finish : ' + fp2Finish.length);
+  // console.log('start : ' + fp1Start.length);
+  // console.log('middle : ' + fp1Middle.length);
+  // console.log('finish : ' + fp1Finish.length);
+  //
+  // //console.log();
+  //
+  // console.log('start : ' + fp2Start.length);
+  // console.log('middle : ' + fp2Middle.length);
+  // console.log('finish : ' + fp2Finish.length);
 
 
   var originToken1 = fs.readFileSync('./files/data1.json', 'utf8');
@@ -284,8 +284,8 @@ var identification = function(fp1, fp2) {
   originToken1 = JSON.parse(originToken1);
   originToken2 = JSON.parse(originToken2);
 
-  //console.log(originToken1.HP);
   console.log("==============================");
+
   console.log("HP : " + (token1.HP / originToken1.HP));
   console.log("LP : " + (token1.LP / originToken1.LP));
   console.log("LHPL : " + (token1.LHPL / originToken1.LHPL));
@@ -314,15 +314,21 @@ var identification = function(fp1, fp2) {
 
   console.log("blink : " + (token2.blink / originToken2.blink));
   console.log("notBlink : " + (token2.notBlink / originToken2.notBlink));
+  console.log("==============================");
+  console.log();
+  console.log();
 
-  if(((token1.HP / originToken1.HP) > 0.8 && (token1.HP / originToken1.HP) < 1.2) && ((token1.LP / originToken1.LP) > 0.8 && (token1.LP / originToken1.LP) < 1.2) && ((token1.LHPL / originToken1.LHPL) > 0.8 && (token1.LHPL / originToken1.LHPL) < 1.2) && ((token1.LLPL / originToken1.LLPL) > 0.8 && (token1.LLPL / originToken1.LLPL) < 1.2) && ((token1.HPL / originToken1.HPL) > 0.8 && (token1.HPL / originToken1.HPL) < 1.2) && ((token1.LPL / originToken1.LPL) > 0.8 && (token1.LPL / originToken1.LPL) < 1.2) && ((token1.LHPG / originToken1.LHPG) > 0.8 && (token1.LHPG / originToken1.LHPG) < 1.2) && ((token1.LLPG / originToken1.LLPG) > 0.8 && (token1.LLPG / originToken1.LLPG) < 1.2) && ((token1.RHPG / originToken1.RHPG) > 0.8 && (token1.RHPG / originToken1.RHPG) < 1.2) && ((token1.RLPG / originToken1.RLPG) > 0.8 && (token1.RLPG / originToken1.RLPG) < 1.2) && ((token1.blink / originToken1.blink) > 0.8 && (token1.blink / originToken1.blink) < 1.2) && ((token1.notBlink / originToken1.notBlink) > 0.8 && (token1.notBlink / originToken1.notBlink) < 1.2)) {
-    console.log('fp1 중복으로 개인식별');
+  if(((token1.HP / originToken1.HP) > 0.6 && (token1.HP / originToken1.HP) < 1.4) && ((token1.LP / originToken1.LP) > 0.6 && (token1.LP / originToken1.LP) < 1.4) && ((token1.LHPL / originToken1.LHPL) > 0.6 && (token1.LHPL / originToken1.LHPL) < 1.4) && ((token1.LLPL / originToken1.LLPL) > 0.6 && (token1.LLPL / originToken1.LLPL) < 1.4) && ((token1.HPL / originToken1.HPL) > 0.6 && (token1.HPL / originToken1.HPL) < 1.4) && ((token1.LPL / originToken1.LPL) > 0.6 && (token1.LPL / originToken1.LPL) < 1.4) && /*((token1.LHPG / originToken1.LHPG) > 0.6 && (token1.LHPG / originToken1.LHPG) < 1.4) && */ ((token1.LLPG / originToken1.LLPG) > 0.6 && (token1.LLPG / originToken1.LLPG) < 1.4) && ((token1.RHPG / originToken1.RHPG) > 0.6 && (token1.RHPG / originToken1.RHPG) < 1.4) && ((token1.RLPG / originToken1.RLPG) > 0.6 && (token1.RLPG / originToken1.RLPG) < 1.4) && ((token1.blink / originToken1.blink) > 0.6 && (token1.blink / originToken1.blink) < 1.4) && ((token1.notBlink / originToken1.notBlink) > 0.6 && (token1.notBlink / originToken1.notBlink) < 1.4)) {
+    //console.log('fp1 중복으로 개인식별');
+    return true;
   }
-  else if(((token2.HP / originToken2.HP) > 0.8 && (token2.HP / originToken2.HP) < 1.2) && ((token2.LP / originToken2.LP) > 0.8 && (token2.LP / originToken2.LP) < 1.2) && ((token2.LHPL / originToken2.LHPL) > 0.8 && (token2.LHPL / originToken2.LHPL) < 1.2) && ((token2.LLPL / originToken2.LLPL) > 0.8 && (token2.LLPL / originToken2.LLPL) < 1.2) && ((token2.HPL / originToken2.HPL) > 0.8 && (token2.HPL / originToken2.HPL) < 1.2) && ((token2.LPL / originToken2.LPL) > 0.8 && (token2.LPL / originToken2.LPL) < 1.2) && ((token2.LHPG / originToken2.LHPG) > 0.8 && (token2.LHPG / originToken2.LHPG) < 1.2) && ((token2.LLPG / originToken2.LLPG) > 0.8 && (token2.LLPG / originToken2.LLPG) < 1.2) && ((token2.RHPG / originToken2.RHPG) > 0.8 && (token2.RHPG / originToken2.RHPG) < 1.2) && ((token2.RLPG / originToken2.RLPG) > 0.8 && (token2.RLPG / originToken2.RLPG) < 1.2) && ((token2.blink / originToken2.blink) > 0.8 && (token2.blink / originToken2.blink) < 1.2) && ((token2.notBlink / originToken2.notBlink) > 0.8 && (token2.notBlink / originToken2.notBlink) < 1.2)) {
-    console.log('fp2 중복으로 개인식별');
+  else if(((token2.HP / originToken2.HP) > 0.6 && (token2.HP / originToken2.HP) < 1.4) && ((token2.LP / originToken2.LP) > 0.6 && (token2.LP / originToken2.LP) < 1.4) && ((token2.LHPL / originToken2.LHPL) > 0.6 && (token2.LHPL / originToken2.LHPL) < 1.4) && ((token2.LLPL / originToken2.LLPL) > 0.6 && (token2.LLPL / originToken2.LLPL) < 1.4) && ((token2.HPL / originToken2.HPL) > 0.6 && (token2.HPL / originToken2.HPL) < 1.4) && ((token2.LPL / originToken2.LPL) > 0.6 && (token2.LPL / originToken2.LPL) < 1.4) && /* ((token2.LHPG / originToken2.LHPG) > 0.6 && (token2.LHPG / originToken2.LHPG) < 1.4) && */ ((token2.LLPG / originToken2.LLPG) > 0.6 && (token2.LLPG / originToken2.LLPG) < 1.4) && ((token2.RHPG / originToken2.RHPG) > 0.6 && (token2.RHPG / originToken2.RHPG) < 1.4) && ((token2.RLPG / originToken2.RLPG) > 0.6 && (token2.RLPG / originToken2.RLPG) < 1.4) && ((token2.blink / originToken2.blink) > 0.6 && (token2.blink / originToken2.blink) < 1.4) && ((token2.notBlink / originToken2.notBlink) > 0.6 && (token2.notBlink / originToken2.notBlink) < 1.4)) {
+    //console.log('fp2 중복으로 개인식별');
+    return true;
   }
   else {
-    console.log('개인식별 실패');
+    //console.log('개인식별 실패');
+    return false;
   }
 
 }
@@ -425,7 +431,7 @@ var tokenCreate = function(HP, LP, LHPL, LLPL, HPL, LPL, LHPG, LLPG, RHPG, RLPG,
   obj = JSON.stringify(obj);
 
   //console.log('개인식별 토큰 생성 완료');
-  console.log(obj);
+  //console.log(obj);
 
   return obj;
 }
