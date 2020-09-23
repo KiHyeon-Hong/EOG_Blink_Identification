@@ -104,7 +104,6 @@ const blinkNotBlink = (start, finish, blink, notBlink) => {
 }
 
 var identification = function(fp1, fp2) {
-
   var fp1Array = parseEOG(fp1);
   var fp2Array = parseEOG(fp2);
 
