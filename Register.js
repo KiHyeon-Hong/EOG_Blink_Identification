@@ -2,20 +2,108 @@ const fs = require('fs');
 
 var BLINKPOINT = 100;
 
+const parseEOG = (data) => {
+  var myArray = data.split(',').map(function(item) {
+      return parseFloat(item, 10);
+  });
+
+  return myArray;
+}
+
+const startMiddleFinishSplit = (data, start, middle, finish) => {
+  var temp = 0;
+  var index = 0;
+
+  for(var i = 0; i < data.length; i++) {
+    if(temp + 150 < i && data[i] > BLINKPOINT) {
+      for(var j = i; j >= 0; j--) {
+        if(data[j] <= 0) {
+          start[index] = j;
+          break;
+        }
+      }
+
+      for(var j = start[index] + 1; j < data.length; j++) {
+        if(data[j] <= 0) {
+          middle[index] = j;
+          break;
+        }
+      }
+
+      for(var j = middle[index] + 1; j < data.length; j++) {
+        if(data[j] >= 0) {
+          finish[index] = j;
+          break;
+        }
+      }
+
+      i = finish[index];
+      index++;
+      temp = i;
+    }
+  }
+}
+
+const featureExtraction = (data, start, middle, finish, HP, LP, LHPL, LLPL, HPL, LPL, LHPG, LLPG, RHPG, RLPG) => {
+  var index = 0;
+
+  for(var i = start[0]; i < finish[finish.length - 1];) {
+    //fp1HP[index] = fp1Array[fp1Start[0]];
+    //fp1LP[index] = fp1Array[fp1Start[0]];
+    HP[index] = 0;
+    LP[index] = 0;
+
+    for(var j = start[index]; j < finish[index]; j++) {
+      if(HP[index] < data[j]) {
+        HP[index] = data[j];
+        LHPL[index] = j - start[index];
+      }
+    }
+
+    for(var j = start[index]; j < finish[index]; j++) {
+      if(LP[index] > data[j]) {
+        LP[index] = data[j];
+        LLPL[index] = j - middle[index];
+      }
+    }
+
+    HPL[index] = middle[index] - start[index];
+    LPL[index] = finish[index] - middle[index];
+
+    LHPG[index] = HP[index] / LHPL[index];
+    LLPG[index] = LP[index] / LLPL[index];
+    RHPG[index] = HP[index] / (HPL[index] - LHPL[index]);
+    RLPG[index] = LP[index] / (LPL[index] - LLPL[index]);
+
+    index++;
+
+    if(start.length == index) {
+      break;
+    }
+
+    i = start[index];
+  }
+}
+
+const blinkNotBlink = (start, finish, blink, notBlink) => {
+  var blinkCheck = 0;
+  var preBlinkCheck = 0;
+
+  for(let i = 0; i < finish.length; i++){
+    blink[i] = finish[i] - start[i];
+  }
+
+  blinkCheck = 0;
+  preBlinkCheck = 0;
+
+  for(let i = 0; i < finish.length - 1; i++){
+    notBlink[i] = start[i + 1] - finish[i];
+  }
+}
+
 var register = function(fp1, fp2) {
-
-  var fp1Array = fp1.split(',').map(function(item) {
-      return parseFloat(item, 10);
-  });
-  var fp2Array = fp2.split(',').map(function(item) {
-      return parseFloat(item, 10);
-  });
-
-  //console.log(fp2Array);
-
-  //var max = Math.max.apply(null, fp2Array);
-  //var min = Math.min.apply(null, fp2Array);
-  //console.log(min)
+  var fp1Array = parseEOG(fp1);
+  var fp2Array = parseEOG(fp2);
 
   var fp1Start = [];
   var fp1Middle = [];
@@ -25,69 +113,9 @@ var register = function(fp1, fp2) {
   var fp2Middle = [];
   var fp2Finish = [];
 
-  var temp = 0;
-  var index = 0;
+  startMiddleFinishSplit(fp1Array, fp1Start, fp1Middle, fp1Finish);
+  startMiddleFinishSplit(fp2Array, fp2Start, fp2Middle, fp2Finish);
 
-  for(var i = 0; i < fp1Array.length; i++) {
-    if(temp + 150 < i && fp1Array[i] > BLINKPOINT) {
-      for(var j = i; j >= 0; j--) {
-        if(fp1Array[j] <= 0) {
-          fp1Start[index] = j;
-          break;
-        }
-      }
-
-      for(var j = fp1Start[index] + 1; j < fp1Array.length; j++) {
-        if(fp1Array[j] <= 0) {
-          fp1Middle[index] = j;
-          break;
-        }
-      }
-
-      for(var j = fp1Middle[index] + 1; j < fp1Array.length; j++) {
-        if(fp1Array[j] >= 0) {
-          fp1Finish[index] = j;
-          break;
-        }
-      }
-
-      i = fp1Finish[index];
-      index++;
-      temp = i;
-    }
-  }
-
-  index = 0;
-  temp = 0;
-
-  for(var i = 0; i < fp2Array.length; i++) {
-    if(temp + 150 < i && fp2Array[i] > BLINKPOINT) {
-      for(var j = i; j >= 0; j--) {
-        if(fp2Array[j] <= 0) {
-          fp2Start[index] = j;
-          break;
-        }
-      }
-
-      for(var j = fp2Start[index] + 1; j < fp2Array.length; j++) {
-        if(fp2Array[j] <= 0) {
-          fp2Middle[index] = j;
-          break;
-        }
-      }
-
-      for(var j = fp2Middle[index] + 1; j < fp2Array.length; j++) {
-        if(fp2Array[j] >= 0) {
-          fp2Finish[index] = j;
-          break;
-        }
-      }
-
-      i = fp2Finish[index];
-      index++;
-      temp = i;
-    }
-  }
 
   //개인식별 특징 추출 test
   var fp1HP = [];
@@ -101,47 +129,6 @@ var register = function(fp1, fp2) {
   var fp1RHPG = [];
   var fp1RLPG = [];
 
-  index = 0;
-
-  for(var i = fp1Start[0]; i < fp1Finish[fp1Finish.length - 1];) {
-    //fp1HP[index] = fp1Array[fp1Start[0]];
-    //fp1LP[index] = fp1Array[fp1Start[0]];
-    fp1HP[index] = 0;
-    fp1LP[index] = 0;
-
-    for(var j = fp1Start[index]; j < fp1Finish[index]; j++) {
-      if(fp1HP[index] < fp1Array[j]) {
-        fp1HP[index] = fp1Array[j];
-        fp1LHPL[index] = j - fp1Start[index];
-      }
-    }
-
-    for(var j = fp1Start[index]; j < fp1Finish[index]; j++) {
-      if(fp1LP[index] > fp1Array[j]) {
-        fp1LP[index] = fp1Array[j];
-        fp1LLPL[index] = j - fp1Middle[index];
-      }
-    }
-
-    fp1HPL[index] = fp1Middle[index] - fp1Start[index];
-    fp1LPL[index] = fp1Finish[index] - fp1Middle[index];
-
-    fp1LHPG[index] = fp1HP[index] / fp1LHPL[index];
-    fp1LLPG[index] = fp1LP[index] / fp1LLPL[index];
-    fp1RHPG[index] = fp1HP[index] / (fp1HPL[index] - fp1LHPL[index]);
-    fp1RLPG[index] = fp1LP[index] / (fp1LPL[index] - fp1LLPL[index]);
-
-    index++;
-
-    if(fp1Start.length == index) {
-      break;
-    }
-
-    i = fp1Start[index];
-  }
-
-
-  //=====
   var fp2HP = [];
   var fp2LP = [];
   var fp2LHPL = [];
@@ -153,80 +140,17 @@ var register = function(fp1, fp2) {
   var fp2RHPG = [];
   var fp2RLPG = [];
 
-  index = 0;
+  featureExtraction(fp1Array, fp1Start, fp1Middle, fp1Finish, fp1HP, fp1LP, fp1LHPL, fp1LLPL, fp1HPL, fp1LPL, fp1LHPG, fp1LLPG, fp1RHPG, fp1RLPG);
+  featureExtraction(fp2Array, fp2Start, fp2Middle, fp2Finish, fp2HP, fp2LP, fp2LHPL, fp2LLPL, fp2HPL, fp2LPL, fp2LHPG, fp2LLPG, fp2RHPG, fp2RLPG);
 
-  for(var i = fp2Start[0]; i < fp2Finish[fp2Finish.length - 1];) {
-    //fp2HP[index] = fp2Array[fp2Start[0]];
-    //fp2LP[index] = fp2Array[fp2Start[0]];
-    fp2HP[index] = 0;
-    fp2LP[index] = 0;
-
-    for(var j = fp2Start[index]; j < fp2Finish[index]; j++) {
-      if(fp2HP[index] < fp2Array[j]) {
-        fp2HP[index] = fp2Array[j];
-        fp2LHPL[index] = j - fp2Start[index];
-      }
-    }
-
-    for(var j = fp2Start[index]; j < fp2Finish[index]; j++) {
-      if(fp2LP[index] > fp2Array[j]) {
-        fp2LP[index] = fp2Array[j];
-        fp2LLPL[index] = j - fp2Middle[index];
-      }
-    }
-
-    fp2HPL[index] = fp2Middle[index] - fp2Start[index];
-    fp2LPL[index] = fp2Finish[index] - fp2Middle[index];
-
-    fp2LHPG[index] = fp2HP[index] / fp2LHPL[index];
-    fp2LLPG[index] = fp2LP[index] / fp2LLPL[index];
-    fp2RHPG[index] = fp2HP[index] / (fp2HPL[index] - fp2LHPL[index]);
-    fp2RLPG[index] = fp2LP[index] / (fp2LPL[index] - fp2LLPL[index]);
-
-    index++;
-
-    if(fp2Start.length == index) {
-      break;
-    }
-
-    i = fp2Start[index];
-  }
-
-
-
-  //Blink data 추가
   var fp1Blink = [];
   var fp2Blink = [];
+
   var fp1NotBlink = [];
   var fp2NotBlink = [];
 
-  var blinkCheck = 0;
-  var preBlinkCheck = 0;
-
-  for(let i = 0; i < fp1Finish.length; i++){
-    fp1Blink[i] = fp1Finish[i] - fp1Start[i];
-  }
-
-  blinkCheck = 0;
-  preBlinkCheck = 0;
-
-  for(let i = 0; i < fp1Finish.length - 1; i++){
-    fp1NotBlink[i] = fp1Start[i + 1] - fp1Finish[i];
-  }
-
-  blinkCheck = 0;
-  preBlinkCheck = 0;
-
-  for(let i = 0; i < fp2Finish.length; i++){
-    fp2Blink[i] = fp2Finish[i] - fp2Start[i];
-  }
-
-  blinkCheck = 0;
-  preBlinkCheck = 0;
-
-  for(let i = 0; i < fp2Finish.length - 1; i++){
-    fp2NotBlink[i] = fp2Start[i + 1] - fp2Finish[i];
-  }
+  blinkNotBlink(fp1Start, fp1Finish, fp1Blink, fp1NotBlink);
+  blinkNotBlink(fp2Start, fp2Finish, fp2Blink, fp2NotBlink);
 
   // console.log('==============================');
   // console.log(fp1Start);
@@ -375,9 +299,6 @@ var tokenCreate = function(HP, LP, LHPL, LLPL, HPL, LPL, LHPG, LLPG, RHPG, RLPG,
 
   var obj = {'HP':tempHP, 'LP':tempLP, 'LHPL':tempLHPL, 'LLPL':tempLLPL, 'HPL':tempHPL, 'LPL':tempLPL, 'LHPG':tempLHPG, 'LLPG':tempLLPG, 'RHPG':tempRHPG, 'RLPG':tempRLPG, 'blink':tempBlink, 'notBlink':tempNotBlink};
   obj = JSON.stringify(obj);
-
-  //console.log('개인식별 토큰 생성 완료');
-  //console.log(obj);
 
   return obj;
 }
