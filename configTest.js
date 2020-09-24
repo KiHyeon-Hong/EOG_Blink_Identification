@@ -6,3 +6,10 @@
 // var originToken2 = fs.readFileSync('./files/data2.json', 'utf8');
 //
 // originToken1 = JSON.parse(originToken1);
+
+const fs = require('fs');
+
+var json = fs.readFileSync('./config/config.json', 'utf8');
+json = JSON.parse(json);
+
+console.log(json.identificationUp);
