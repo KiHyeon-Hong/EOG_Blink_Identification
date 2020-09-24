@@ -1,7 +1,5 @@
 const fs = require('fs');
 
-var BLINKPOINT = 100;
-
 const parseEOG = (data) => {
   var myArray = data.split(',').map(function(item) {
       return parseFloat(item, 10);
@@ -14,8 +12,11 @@ const startMiddleFinishSplit = (data, start, middle, finish) => {
   var temp = 0;
   var index = 0;
 
+  var json = fs.readFileSync('./config/config.json', 'utf8');
+  json = JSON.parse(json);
+
   for(var i = 0; i < data.length; i++) {
-    if(temp + 150 < i && data[i] > BLINKPOINT) {
+    if(temp + json.delayTime < i && data[i] > json.blinkPoint) {
       for(var j = i; j >= 0; j--) {
         if(data[j] <= 0) {
           start[index] = j;
@@ -119,31 +120,36 @@ const minMaxDelete = (data, check, count) => {
 }
 
 const tokenCreate = function(HP, LP, LHPL, LLPL, HPL, LPL, LHPG, LLPG, RHPG, RLPG, blink, notBlink) {
-  HP = minMaxDelete(HP, 0, 2);
-  LP = minMaxDelete(LP, 0, 2);
-  LHPL = minMaxDelete(LHPL, 0, 2);
-  LLPL = minMaxDelete(LLPL, 0, 2);
-  HPL = minMaxDelete(HPL, 0, 2);
-  LPL = minMaxDelete(LPL, 0, 2);
-  LHPG = minMaxDelete(LHPG, 0, 2);
-  LLPG = minMaxDelete(LLPG, 0, 2);
-  RHPG = minMaxDelete(RHPG, 0, 2);
-  RLPG = minMaxDelete(RLPG, 0, 2);
-  blink = minMaxDelete(blink, 0, 2);
-  notBlink = minMaxDelete(notBlink, 0, 2);
+  var json = fs.readFileSync('./config/config.json', 'utf8');
+  json = JSON.parse(json);
 
-  HP = minMaxDelete(HP, 1, 2);
-  LP = minMaxDelete(LP, 1, 2);
-  LHPL = minMaxDelete(LHPL, 1, 2);
-  LLPL = minMaxDelete(LLPL, 1, 2);
-  HPL = minMaxDelete(HPL, 1, 2);
-  LPL = minMaxDelete(LPL, 1, 2);
-  LHPG = minMaxDelete(LHPG, 1, 2);
-  LLPG = minMaxDelete(LLPG, 1, 2);
-  RHPG = minMaxDelete(RHPG, 1, 2);
-  RLPG = minMaxDelete(RLPG, 1, 2);
-  blink = minMaxDelete(blink, 1, 2);
-  notBlink = minMaxDelete(notBlink, 1, 2);
+  var minMaxCount = json.minMaxCount;
+
+  HP = minMaxDelete(HP, 0, minMaxCount);
+  LP = minMaxDelete(LP, 0, minMaxCount);
+  LHPL = minMaxDelete(LHPL, 0, minMaxCount);
+  LLPL = minMaxDelete(LLPL, 0, minMaxCount);
+  HPL = minMaxDelete(HPL, 0, minMaxCount);
+  LPL = minMaxDelete(LPL, 0, minMaxCount);
+  LHPG = minMaxDelete(LHPG, 0, minMaxCount);
+  LLPG = minMaxDelete(LLPG, 0, minMaxCount);
+  RHPG = minMaxDelete(RHPG, 0, minMaxCount);
+  RLPG = minMaxDelete(RLPG, 0, minMaxCount);
+  blink = minMaxDelete(blink, 0, minMaxCount);
+  notBlink = minMaxDelete(notBlink, 0, minMaxCount);
+
+  HP = minMaxDelete(HP, 1, minMaxCount);
+  LP = minMaxDelete(LP, 1, minMaxCount);
+  LHPL = minMaxDelete(LHPL, 1, minMaxCount);
+  LLPL = minMaxDelete(LLPL, 1, minMaxCount);
+  HPL = minMaxDelete(HPL, 1, minMaxCount);
+  LPL = minMaxDelete(LPL, 1, minMaxCount);
+  LHPG = minMaxDelete(LHPG, 1, minMaxCount);
+  LLPG = minMaxDelete(LLPG, 1, minMaxCount);
+  RHPG = minMaxDelete(RHPG, 1, minMaxCount);
+  RLPG = minMaxDelete(RLPG, 1, minMaxCount);
+  blink = minMaxDelete(blink, 1, minMaxCount);
+  notBlink = minMaxDelete(notBlink, 1, minMaxCount);
 
   var token;
 
