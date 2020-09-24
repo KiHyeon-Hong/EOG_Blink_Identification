@@ -103,6 +103,109 @@ const blinkNotBlink = (start, finish, blink, notBlink) => {
   }
 }
 
+const minMaxDelete = (data, check, count) => {
+  if(check == 0){
+    for(var i = 0; i < count; i++){
+      var min = data.indexOf(Math.min.apply(null, data));
+      data.splice(min, 1);
+    }
+  }
+  else {
+    for(var i = 0; i < count; i++){
+      var max = data.indexOf(Math.max.apply(null, data));
+      data.splice(max, 1);
+    }
+  }
+  return data;
+}
+
+const tokenCreate = function(HP, LP, LHPL, LLPL, HPL, LPL, LHPG, LLPG, RHPG, RLPG, blink, notBlink) {
+  HP = minMaxDelete(HP, 0, 2);
+  LP = minMaxDelete(LP, 0, 2);
+  LHPL = minMaxDelete(LHPL, 0, 2);
+  LLPL = minMaxDelete(LLPL, 0, 2);
+  HPL = minMaxDelete(HPL, 0, 2);
+  LPL = minMaxDelete(LPL, 0, 2);
+  LHPG = minMaxDelete(LHPG, 0, 2);
+  LLPG = minMaxDelete(LLPG, 0, 2);
+  RHPG = minMaxDelete(RHPG, 0, 2);
+  RLPG = minMaxDelete(RLPG, 0, 2);
+  blink = minMaxDelete(blink, 0, 2);
+  notBlink = minMaxDelete(notBlink, 0, 2);
+
+  HP = minMaxDelete(HP, 1, 2);
+  LP = minMaxDelete(LP, 1, 2);
+  LHPL = minMaxDelete(LHPL, 1, 2);
+  LLPL = minMaxDelete(LLPL, 1, 2);
+  HPL = minMaxDelete(HPL, 1, 2);
+  LPL = minMaxDelete(LPL, 1, 2);
+  LHPG = minMaxDelete(LHPG, 1, 2);
+  LLPG = minMaxDelete(LLPG, 1, 2);
+  RHPG = minMaxDelete(RHPG, 1, 2);
+  RLPG = minMaxDelete(RLPG, 1, 2);
+  blink = minMaxDelete(blink, 1, 2);
+  notBlink = minMaxDelete(notBlink, 1, 2);
+
+  var token;
+
+  var tempHP = 0;
+  var tempLP = 0;
+  var tempLHPL = 0;
+  var tempLLPL = 0;
+  var tempHPL = 0;
+  var tempLPL = 0;
+  var tempLHPG = 0;
+  var tempLLPG = 0;
+  var tempRHPG = 0;
+  var tempRLPG = 0;
+
+  var tempBlink = 0;
+  var tempNotBlink = 0;
+
+  for(var i = 0; i < HP.length; i++) {
+    tempHP += HP[i];
+    tempLP += LP[i];
+    tempLHPL += LHPL[i];
+    tempLLPL += LLPL[i];
+    tempHPL += HPL[i];
+    tempLPL += LPL[i];
+    tempLHPG += LHPG[i];
+    tempLLPG += LLPG[i];
+    tempRHPG += RHPG[i];
+    tempRLPG += RLPG[i];
+  }
+
+  for(var i = 0; i < blink.length; i++) {
+    tempBlink += blink[i];
+  }
+
+  for(var i = 0; i < notBlink.length; i++) {
+    tempNotBlink += notBlink[i];
+  }
+
+  tempHP = tempHP / HP.length;
+  tempLP = tempLP/  LP.length;
+  tempLHPL = tempLHPL / LHPL.length;
+  tempLLPL = tempLLPL / LLPL.length;
+  tempHPL = tempHPL / HPL.length;;
+  tempLPL = tempLPL / LPL.length;
+  tempLHPG = tempLHPG / LHPG.length;
+  tempLLPG = tempLLPG / LLPG.length;
+  tempRHPG = tempRHPG / RHPG.length;
+  tempRLPG = tempRLPG / RLPG.length;
+
+  tempBlink = tempBlink / blink.length;
+  tempNotBlink = tempNotBlink / notBlink.length;
+
+  var obj = {'HP':tempHP, 'LP':tempLP, 'LHPL':tempLHPL, 'LLPL':tempLLPL, 'HPL':tempHPL, 'LPL':tempLPL, 'LHPG':tempLHPG, 'LLPG':tempLLPG, 'RHPG':tempRHPG, 'RLPG':tempRLPG, 'blink':tempBlink, 'notBlink':tempNotBlink};
+  obj = JSON.stringify(obj);
+
+  //console.log('개인식별 토큰 생성 완료');
+  //console.log(obj);
+
+  return obj;
+}
+
 var identification = function(fp1, fp2) {
   var fp1Array = parseEOG(fp1);
   var fp2Array = parseEOG(fp2);
@@ -256,109 +359,6 @@ var identification = function(fp1, fp2) {
     return false;
   }
 
-}
-
-var minMaxDelete = (data, check, count) => {
-  if(check == 0){
-    for(var i = 0; i < count; i++){
-      var min = data.indexOf(Math.min.apply(null, data));
-      data.splice(min, 1);
-    }
-  }
-  else {
-    for(var i = 0; i < count; i++){
-      var max = data.indexOf(Math.max.apply(null, data));
-      data.splice(max, 1);
-    }
-  }
-  return data;
-}
-
-var tokenCreate = function(HP, LP, LHPL, LLPL, HPL, LPL, LHPG, LLPG, RHPG, RLPG, blink, notBlink) {
-  HP = minMaxDelete(HP, 0, 2);
-  LP = minMaxDelete(LP, 0, 2);
-  LHPL = minMaxDelete(LHPL, 0, 2);
-  LLPL = minMaxDelete(LLPL, 0, 2);
-  HPL = minMaxDelete(HPL, 0, 2);
-  LPL = minMaxDelete(LPL, 0, 2);
-  LHPG = minMaxDelete(LHPG, 0, 2);
-  LLPG = minMaxDelete(LLPG, 0, 2);
-  RHPG = minMaxDelete(RHPG, 0, 2);
-  RLPG = minMaxDelete(RLPG, 0, 2);
-  blink = minMaxDelete(blink, 0, 2);
-  notBlink = minMaxDelete(notBlink, 0, 2);
-
-  HP = minMaxDelete(HP, 1, 2);
-  LP = minMaxDelete(LP, 1, 2);
-  LHPL = minMaxDelete(LHPL, 1, 2);
-  LLPL = minMaxDelete(LLPL, 1, 2);
-  HPL = minMaxDelete(HPL, 1, 2);
-  LPL = minMaxDelete(LPL, 1, 2);
-  LHPG = minMaxDelete(LHPG, 1, 2);
-  LLPG = minMaxDelete(LLPG, 1, 2);
-  RHPG = minMaxDelete(RHPG, 1, 2);
-  RLPG = minMaxDelete(RLPG, 1, 2);
-  blink = minMaxDelete(blink, 1, 2);
-  notBlink = minMaxDelete(notBlink, 1, 2);
-
-  var token;
-
-  var tempHP = 0;
-  var tempLP = 0;
-  var tempLHPL = 0;
-  var tempLLPL = 0;
-  var tempHPL = 0;
-  var tempLPL = 0;
-  var tempLHPG = 0;
-  var tempLLPG = 0;
-  var tempRHPG = 0;
-  var tempRLPG = 0;
-
-  var tempBlink = 0;
-  var tempNotBlink = 0;
-
-  for(var i = 0; i < HP.length; i++) {
-    tempHP += HP[i];
-    tempLP += LP[i];
-    tempLHPL += LHPL[i];
-    tempLLPL += LLPL[i];
-    tempHPL += HPL[i];
-    tempLPL += LPL[i];
-    tempLHPG += LHPG[i];
-    tempLLPG += LLPG[i];
-    tempRHPG += RHPG[i];
-    tempRLPG += RLPG[i];
-  }
-
-  for(var i = 0; i < blink.length; i++) {
-    tempBlink += blink[i];
-  }
-
-  for(var i = 0; i < notBlink.length; i++) {
-    tempNotBlink += notBlink[i];
-  }
-
-  tempHP = tempHP / HP.length;
-  tempLP = tempLP/  LP.length;
-  tempLHPL = tempLHPL / LHPL.length;
-  tempLLPL = tempLLPL / LLPL.length;
-  tempHPL = tempHPL / HPL.length;;
-  tempLPL = tempLPL / LPL.length;
-  tempLHPG = tempLHPG / LHPG.length;
-  tempLLPG = tempLLPG / LLPG.length;
-  tempRHPG = tempRHPG / RHPG.length;
-  tempRLPG = tempRLPG / RLPG.length;
-
-  tempBlink = tempBlink / blink.length;
-  tempNotBlink = tempNotBlink / notBlink.length;
-
-  var obj = {'HP':tempHP, 'LP':tempLP, 'LHPL':tempLHPL, 'LLPL':tempLLPL, 'HPL':tempHPL, 'LPL':tempLPL, 'LHPG':tempLHPG, 'LLPG':tempLLPG, 'RHPG':tempRHPG, 'RLPG':tempRLPG, 'blink':tempBlink, 'notBlink':tempNotBlink};
-  obj = JSON.stringify(obj);
-
-  //console.log('개인식별 토큰 생성 완료');
-  //console.log(obj);
-
-  return obj;
 }
 
 exports.identification = identification;
