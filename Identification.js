@@ -260,6 +260,9 @@ var identification = function(fp1, fp2) {
   blinkNotBlink(fp1Start, fp1Finish, fp1Blink, fp1NotBlink);
   blinkNotBlink(fp2Start, fp2Finish, fp2Blink, fp2NotBlink);
 
+  console.log('눈 깜빡임 시간 : ' + fp1Blink);
+  console.log('눈을 깜빡이지 않는 시간 : ' + fp1NotBlink);
+
   // console.log('==============================');
   // console.log(fp1Start);
   // console.log('==============================');
@@ -308,6 +311,7 @@ var identification = function(fp1, fp2) {
   // console.log('start : ' + fp2Start.length);
   // console.log('middle : ' + fp2Middle.length);
   // console.log('finish : ' + fp2Finish.length);
+
 
 
   var originToken1 = fs.readFileSync('./files/data1.json', 'utf8');
