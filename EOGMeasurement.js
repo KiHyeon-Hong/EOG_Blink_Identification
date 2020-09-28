@@ -100,3 +100,8 @@ setInterval(() => {
     process.exit();
   }
 }, 1000);
+
+process.on('exit', () => {
+  gpio.digitalWrite(LED, 0)
+  process.exit();
+});
