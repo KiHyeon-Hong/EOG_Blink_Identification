@@ -10,7 +10,12 @@ const {
 const eegPipes = require('@neurosity/pipes');
 const fs = require("fs");
 
-const EOGBlink = 600;
+//const EOGBlink = 600;
+var json = fs.readFileSync('./config/config.json', 'utf8');
+json = JSON.parse(json);
+
+var EOGBlink = json.EOGBlink;
+
 
 var flag = 0;
 var preFlag = 0;

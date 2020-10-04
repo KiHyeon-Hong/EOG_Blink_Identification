@@ -7,8 +7,8 @@ const config = require('./config.js');
 var fp1 = fs.readFileSync('./data/dataCh2.txt', 'utf8');
 var fp2 = fs.readFileSync('./data/dataCh3.txt', 'utf8');
 
-var result = register.register(fp1, fp2);
+//var result = register.register(fp1, fp2);
 //var result = identification.identification(fp1, fp2);
-//var result = config.identificationUp(1.4);
+//var result = config.eogBlink(500);
 
 console.log(result);
