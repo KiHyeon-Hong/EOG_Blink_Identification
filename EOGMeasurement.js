@@ -16,6 +16,9 @@ var flag = 0;
 var preFlag = 0;
 var count = 0;
 
+fs.writeFileSync('./data/dataCh2.txt', "", 'utf8');
+fs.writeFileSync('./data/dataCh3.txt', "", 'utf8');
+
 async function init() {
   const ganglion = new Ganglion({
     verbose: true,
@@ -96,12 +99,16 @@ init();
 
 setInterval(() => {
   if(count > 15) {
-    gpio.digitalWrite(LED, 0)
+    gpio.digitalWrite(LED, 0);
     process.exit();
   }
 }, 1000);
 
 process.on('exit', () => {
-  gpio.digitalWrite(LED, 0)
+  gpio.digitalWrite(LED, 0);
+
+  fs.writeFileSync('./data/dataCh2.txt', "", 'utf8');
+  fs.writeFileSync('./data/dataCh3.txt', "", 'utf8');
+
   process.exit();
 });

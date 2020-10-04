@@ -307,6 +307,9 @@ var register = function(fp1, fp2) {
 
   fs.writeFileSync('./files/data1.json', token1, 'utf8');
   fs.writeFileSync('./files/data2.json', token2, 'utf8');
+
+  fs.writeFileSync('./data/dataCh2.txt', "", 'utf8');
+  fs.writeFileSync('./data/dataCh3.txt', "", 'utf8');
 }
 
 exports.register = register;

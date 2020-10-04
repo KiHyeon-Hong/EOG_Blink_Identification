@@ -360,6 +360,9 @@ var identification = function(fp1, fp2) {
   var up = json.identificationUp;
   var down = json.identificationDown;
 
+  fs.writeFileSync('./data/dataCh2.txt', "", 'utf8');
+  fs.writeFileSync('./data/dataCh3.txt', "", 'utf8');
+
 
   if(((token1.HP / originToken1.HP) > down && (token1.HP / originToken1.HP) < up) && ((token1.LP / originToken1.LP) > down && (token1.LP / originToken1.LP) < up) && ((token1.LHPL / originToken1.LHPL) > down && (token1.LHPL / originToken1.LHPL) < up) && ((token1.LLPL / originToken1.LLPL) > down && (token1.LLPL / originToken1.LLPL) < up) && ((token1.HPL / originToken1.HPL) > down && (token1.HPL / originToken1.HPL) < up) && ((token1.LPL / originToken1.LPL) > down && (token1.LPL / originToken1.LPL) < up) && ((token1.LHPG / originToken1.LHPG) > down && (token1.LHPG / originToken1.LHPG) < up) && ((token1.LLPG / originToken1.LLPG) > down && (token1.LLPG / originToken1.LLPG) < up) && ((token1.RHPG / originToken1.RHPG) > down && (token1.RHPG / originToken1.RHPG) < up) && ((token1.RLPG / originToken1.RLPG) > down && (token1.RLPG / originToken1.RLPG) < up) && ((token1.blink / originToken1.blink) > down && (token1.blink / originToken1.blink) < up) && ((token1.notBlink / originToken1.notBlink) > down && (token1.notBlink / originToken1.notBlink) < up)) {
     //console.log('fp1 중복으로 개인식별');
