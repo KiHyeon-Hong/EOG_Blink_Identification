@@ -87,6 +87,23 @@ async function init() {
        //console.log("append ------  ./data/dataCh3.txt")
       })
       count++;
+
+
+      if(count <= 15) {
+        fs.appendFile("./data/dataCh2.txt", ',', 'utf8', function (error) {
+          if (error) {
+            console.log(error)
+          }
+        })
+        fs.appendFile("./data/dataCh3.txt", ',', 'utf8', function (error) {
+          if (error) {
+            console.log(error)
+          }
+        })
+      }
+
+
+
     }
     else {
       if(preFlag == 0) {
@@ -107,13 +124,11 @@ setInterval(() => {
     gpio.digitalWrite(LED, 0);
     process.exit();
   }
-}, 1000);
+}, 500);
 
 process.on('exit', () => {
   gpio.digitalWrite(LED, 0);
 
-  fs.writeFileSync('./data/dataCh2.txt', "", 'utf8');
-  fs.writeFileSync('./data/dataCh3.txt', "", 'utf8');
 
   process.exit();
 });

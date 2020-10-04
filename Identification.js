@@ -260,18 +260,18 @@ var identification = function(fp1, fp2) {
   blinkNotBlink(fp1Start, fp1Finish, fp1Blink, fp1NotBlink);
   blinkNotBlink(fp2Start, fp2Finish, fp2Blink, fp2NotBlink);
 
-  console.log('눈 깜빡임 시간 : ' + fp1Blink);
-  console.log('눈을 깜빡이지 않는 시간 : ' + fp1NotBlink);
+  // console.log('눈 깜빡임 시간 : ' + fp1Blink);
+  // console.log('눈을 깜빡이지 않는 시간 : ' + fp1NotBlink);
 
-  // console.log('==============================');
-  // console.log(fp1Start);
-  // console.log('==============================');
-  // console.log(fp1Middle);
-  // console.log('==============================');
-  // console.log(fp1Finish);
-  // console.log('==============================');
-  // console.log(fp1Blink);
-  // console.log('==============================');
+   // console.log('==============================');
+   // console.log(fp1Start);
+   // console.log('==============================');
+   // console.log(fp1Middle);
+   // console.log('==============================');
+   // console.log(fp1Finish);
+   // console.log('==============================');
+   // console.log(fp1Blink);
+   // console.log('==============================');
 
   // console.log("fp1HP : ");
   // console.log(fp1HP);
