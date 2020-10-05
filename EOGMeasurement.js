@@ -89,7 +89,7 @@ async function init() {
       count++;
 
 
-      if(count <= 15) {
+      if(count <= json.count) {
         fs.appendFile("./data/dataCh2.txt", ',', 'utf8', function (error) {
           if (error) {
             console.log(error)
@@ -120,7 +120,7 @@ async function init() {
 init();
 
 setInterval(() => {
-  if(count > 15) {
+  if(count > json.count) {
     gpio.digitalWrite(LED, 0);
     process.exit();
   }
