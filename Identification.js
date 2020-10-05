@@ -1,3 +1,11 @@
+/*
+
+
+  @author Ki-Hyeon Hong
+  @version 1.0
+  @개인식별 서비스 제공을 위한 개인식별 성능 고도화
+*/
+
 const fs = require('fs');
 
 const parseEOG = (data) => {

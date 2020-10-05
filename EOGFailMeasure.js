@@ -51,13 +51,11 @@ async function init() {
       if (error) {
         console.log(error)
       }
-      //console.log("append ------  ./data/dataCh2.txt")
     })
     fs.appendFile("./data/dataCh3.txt", data.data[2].toString(), 'utf8', function (error) {
       if (error) {
         console.log(error)
       }
-     //console.log("append ------  ./data/dataCh3.txt")
     })
     count++;
 
