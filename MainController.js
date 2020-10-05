@@ -1,3 +1,11 @@
+/*
+  뇌파 측정 없이 모듈 테스트를 위한 모듈
+
+  @author Ki-Hyeon Hong
+  @version 1.0
+  @테스트 코드 작성
+*/
+
 const fs = require('fs');
 const identification = require('./Identification.js');
 const register = require('./Register.js');
