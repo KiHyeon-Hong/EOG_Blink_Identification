@@ -1,26 +1,10 @@
-// var exec = require('child_process').exec;
-//
-// const test = () => {
-//   exec('sudo node EOGMeasurement.js', function callback(error, stdout, stderr){
-//     console.log('good')
-//   });
-// }
-//
-// test();
+/*
+  개인식별 성능 평가 모듈
 
-// if(((token1.HP / originToken1.HP) > 0.6 && (token1.HP / originToken1.HP) < 1.4) && ((token1.LP / originToken1.LP) > 0.6 && (token1.LP / originToken1.LP) < 1.4) && ((token1.LHPL / originToken1.LHPL) > 0.6 && (token1.LHPL / originToken1.LHPL) < 1.4) && ((token1.LLPL / originToken1.LLPL) > 0.6 && (token1.LLPL / originToken1.LLPL) < 1.4) && ((token1.HPL / originToken1.HPL) > 0.6 && (token1.HPL / originToken1.HPL) < 1.4) && ((token1.LPL / originToken1.LPL) > 0.6 && (token1.LPL / originToken1.LPL) < 1.4) && ((token1.LHPG / originToken1.LHPG) > 0.6 && (token1.LHPG / originToken1.LHPG) < 1.4) && ((token1.LLPG / originToken1.LLPG) > 0.6 && (token1.LLPG / originToken1.LLPG) < 1.4) && ((token1.RHPG / originToken1.RHPG) > 0.6 && (token1.RHPG / originToken1.RHPG) < 1.4) && ((token1.RLPG / originToken1.RLPG) > 0.6 && (token1.RLPG / originToken1.RLPG) < 1.4)) {
-//   console.log('fp1 중복으로 개인식별');
-// }
-// else if(((token2.HP / originToken2.HP) > 0.6 && (token2.HP / originToken2.HP) < 1.4) && ((token2.LP / originToken2.LP) > 0.6 && (token2.LP / originToken2.LP) < 1.4) && ((token2.LHPL / originToken2.LHPL) > 0.6 && (token2.LHPL / originToken2.LHPL) < 1.4) && ((token2.LLPL / originToken2.LLPL) > 0.6 && (token2.LLPL / originToken2.LLPL) < 1.4) && ((token2.HPL / originToken2.HPL) > 0.6 && (token2.HPL / originToken2.HPL) < 1.4) && ((token2.LPL / originToken2.LPL) > 0.6 && (token2.LPL / originToken2.LPL) < 1.4) && ((token2.LHPG / originToken2.LHPG) > 0.6 && (token2.LHPG / originToken2.LHPG) < 1.4) && ((token2.LLPG / originToken2.LLPG) > 0.6 && (token2.LLPG / originToken2.LLPG) < 1.4) && ((token2.RHPG / originToken2.RHPG) > 0.6 && (token2.RHPG / originToken2.RHPG) < 1.4) && ((token2.RLPG / originToken2.RLPG) > 0.6 && (token2.RLPG / originToken2.RLPG) < 1.4)) {
-//   console.log('fp2 중복으로 개인식별');
-// }
-// else {
-//   console.log('개인식별 실패');
-// }
-
-// var test = [30 , 10, 20, 30, 40, 50, 10, 20];
-// var min = test.indexOf(Math.min.apply(null, test));
-// test.splice(min, 1);
+  @author Ki-Hyeon Hong
+  @version 1.0
+  @개인식별 성능 평가를 위한 코드 작성
+*/
 
 const fs = require('fs');
 const identification = require('./Identification.js');

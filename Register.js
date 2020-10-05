@@ -1,5 +1,21 @@
+/*
+  개인식별 서비스 개인식별 등록 모듈
+
+  @author Ki-Hyeon Hong
+  @version 1.0
+  @개인식별 서비스 제공을 위한 개인식별 성능 고도화
+*/
+
 const fs = require('fs');
 
+
+/*
+  string 형태이며 쉼표(,)로 구분된 뇌파 데이터 파일을 float 형태의 배열로 분리하는 메소드
+
+  @param var data : string 형태의 뇌파 데이터
+  @return var myArray : float 형태의 뇌파 데이터 배열
+  @exception 없음
+*/
 const parseEOG = (data) => {
   var myArray = data.split(',').map(function(item) {
       return parseFloat(item, 10);
@@ -8,6 +24,17 @@ const parseEOG = (data) => {
   return myArray;
 }
 
+
+/*
+  float 뇌파 데이터 배열에서 눈 깜빡임 시작 지점, 중간 지점, 종료 지점을 추출하여 배열에 index 값 저장
+
+  @param var data : float 형태의 뇌파 데이터 배열
+  @param var start : 눈 깜빡임 시작 지점을 저장할 빈 배열
+  @param var middle : 눈 깜빡임 중간 지점을 저장할 빈 배열
+  @param var finish : 눈 깜박임 종료 지점을 저장할 빈 배열
+  @return 없음
+  @exception 없음
+*/
 const startMiddleFinishSplit = (data, start, middle, finish) => {
   var temp = 0;
   var index = 0;
@@ -45,6 +72,18 @@ const startMiddleFinishSplit = (data, start, middle, finish) => {
   }
 }
 
+
+/*
+  뇌파 데이터 배열과 start, middle. finish 지점을 통하여 개인식별을 위한 특징을 추출하는 메소드
+
+  @param var data : float 형태의 뇌파 데이터 배열
+  @param var start : 눈 깜빡임 시작 지점 인덱스 배열
+  @param var middle : 눈 깜빡임 중간 지점 인덱스 배열
+  @param var finish : 눈 깜박임 종료 지점 인덱스 배열
+  @param var HP ~ RLPG : 개인식별을 위한 특징을 저장할 빈 배열들
+  @return 없음
+  @exception 없음
+*/
 const featureExtraction = (data, start, middle, finish, HP, LP, LHPL, LLPL, HPL, LPL, LHPG, LLPG, RHPG, RLPG) => {
   var index = 0;
 
@@ -86,6 +125,17 @@ const featureExtraction = (data, start, middle, finish, HP, LP, LHPL, LLPL, HPL,
   }
 }
 
+
+/*
+  눈 깜빡임 지속 시간과 눈 깜빡임 사이의 시간을 측정하는 메소드
+
+  @param var start : 눈 깜빡임 데이터 시작 지점 인덱스 배열
+  @param var finish : 눈 깜빡임 데이터 종료 지점 인덱스 배열
+  @param var blink : 눈 깜빡임 지속 시간을 저장할 빈 배열
+  @param var notBlink : 눈 깜빡임 사이의 시간을 저장할 빈 배열
+  @return 없음
+  @exception 없음
+*/
 const blinkNotBlink = (start, finish, blink, notBlink) => {
   var blinkCheck = 0;
   var preBlinkCheck = 0;
@@ -102,7 +152,16 @@ const blinkNotBlink = (start, finish, blink, notBlink) => {
   }
 }
 
-//minDelete 0, maxDelete 1
+
+/*
+  개개인의 눈 깜빡임 특징에서 최솟값과 최댓값을 제거하여 개인의 좀 더 일반적인 특징을 추출하는 메소드
+
+  @param var data : 개인식별 특징 배열
+  @param var check : 최솟값 제거인지, 최댓값 제거인지 확인 변수(0 -> 최솟값 제거, 1 -> 최댓값 제거)
+  @param var count : 최솟값 또는 최댓값 제거 개수
+  @return var data : 치우친 경향이 제거된 개인식별 특징 배열
+  @exception 없음
+*/
 const minMaxDelete = (data, check, count) => {
   if(check == 0){
     for(var i = 0; i < count; i++){
@@ -119,6 +178,16 @@ const minMaxDelete = (data, check, count) => {
   return data;
 }
 
+
+/*
+  개인식별 특징을 이용하여 개인식별을 위한 token을 생성하는 메소드
+
+  @param var HP ~ RLPG : 개인식별 특징 배열
+  @param var blink : 눈 깜빡임 지속 시간 배열
+  @param var notBlink : 눈 깜빡임 사이의 시간 배열
+  @return var obj : 개인식별 특징을 이용하여 생성된 token json 데이터
+  @exception 없음
+*/
 const tokenCreate = function(HP, LP, LHPL, LLPL, HPL, LPL, LHPG, LLPG, RHPG, RLPG, blink, notBlink) {
   var json = fs.readFileSync('./config/config.json', 'utf8');
   json = JSON.parse(json);
@@ -208,6 +277,15 @@ const tokenCreate = function(HP, LP, LHPL, LLPL, HPL, LPL, LHPG, LLPG, RHPG, RLP
   return obj;
 }
 
+
+/*
+  사용자에게 제공되는 개인식별 등록 인터페이스
+
+  @param var fp1 : 사용자의 fp1에서 측정한 뇌파 데이터
+  @param var fp2 : 사용자의 fp2에서 측정한 뇌파 데이터
+  @return 없음
+  @exception 없음
+*/
 var register = function(fp1, fp2) {
   var fp1Array = parseEOG(fp1);
   var fp2Array = parseEOG(fp2);
