@@ -88,8 +88,6 @@ const featureExtraction = (data, start, middle, finish, HP, LP, LHPL, LLPL, HPL,
   var index = 0;
 
   for(var i = start[0]; i < finish[finish.length - 1];) {
-    //fp1HP[index] = fp1Array[fp1Start[0]];
-    //fp1LP[index] = fp1Array[fp1Start[0]];
     HP[index] = 0;
     LP[index] = 0;
 
@@ -301,7 +299,7 @@ var identification = function(fp1, fp2) {
   startMiddleFinishSplit(fp1Array, fp1Start, fp1Middle, fp1Finish);
   startMiddleFinishSplit(fp2Array, fp2Start, fp2Middle, fp2Finish);
 
-  //개인식별 특징 추출 test
+
   var fp1HP = [];
   var fp1LP = [];
   var fp1LHPL = [];
@@ -336,59 +334,12 @@ var identification = function(fp1, fp2) {
   blinkNotBlink(fp1Start, fp1Finish, fp1Blink, fp1NotBlink);
   blinkNotBlink(fp2Start, fp2Finish, fp2Blink, fp2NotBlink);
 
-  // console.log('눈 깜빡임 시간 : ' + fp1Blink);
-  // console.log('눈을 깜빡이지 않는 시간 : ' + fp1NotBlink);
 
-   // console.log('==============================');
-   // console.log(fp1Start);
-   // console.log('==============================');
-   // console.log(fp1Middle);
-   // console.log('==============================');
-   // console.log(fp1Finish);
-   // console.log('==============================');
-   // console.log(fp1Blink);
-   // console.log('==============================');
-
-  // console.log("fp1HP : ");
-  // console.log(fp1HP);
-  // console.log("fp1LP : ");
-  // console.log(fp1LP);
-  // console.log("fp1LHPL : ");
-  // console.log(fp1LHPL);
-  // console.log("fp1LLPL : ");
-  // console.log(fp1LLPL);
-  // console.log("fp1HPL : ");
-  // console.log(fp1HPL);
-  // console.log("fp1LPL : ");
-  // console.log(fp1LPL);
-  // console.log("fp1LHPG : ");
-  // console.log(fp1LHPG);
-  // console.log("fp1LLPG : ");
-  // console.log(fp1LLPG);
-  // console.log("fp1RHPG : ");
-  // console.log(fp1RHPG);
-  // console.log("fp1RLPG : ");
-  // console.log(fp1RLPG);
-
-  //토큰화 test
   var token1 = tokenCreate(fp1HP, fp1LP, fp1LHPL, fp1LLPL, fp1HPL, fp1LPL, fp1LHPG, fp1LLPG, fp1RHPG, fp1RLPG, fp1Blink, fp1NotBlink);
   var token2 = tokenCreate(fp2HP, fp2LP, fp2LHPL, fp2LLPL, fp2HPL, fp2LPL, fp2LHPG, fp2LLPG, fp2RHPG, fp2RLPG, fp2Blink, fp2NotBlink);
 
   token1 = JSON.parse(token1);
   token2 = JSON.parse(token2);
-
-
-  // console.log('start : ' + fp1Start.length);
-  // console.log('middle : ' + fp1Middle.length);
-  // console.log('finish : ' + fp1Finish.length);
-  //
-  // //console.log();
-  //
-  // console.log('start : ' + fp2Start.length);
-  // console.log('middle : ' + fp2Middle.length);
-  // console.log('finish : ' + fp2Finish.length);
-
-
 
   var originToken1 = fs.readFileSync('./files/data1.json', 'utf8');
   var originToken2 = fs.readFileSync('./files/data2.json', 'utf8');
