@@ -37,8 +37,8 @@ var preFlag = 0;
 var count = 0;
 
 //뇌파 데이터 측정 전에 현재 파일에 기록되어 있는 데이터를 제거한다
-fs.writeFileSync('./EOGSampleFile/user1/file49-1.txt', "", 'utf8');
-fs.writeFileSync('./EOGSampleFile/user1/file49-2.txt', "", 'utf8');
+fs.writeFileSync('./EOGSampleFile/user2/file49-1.txt', "", 'utf8');
+fs.writeFileSync('./EOGSampleFile/user2/file49-2.txt', "", 'utf8');
 
 /*
   Ganglion board와 연동 후 뇌파 데이터 측정 시작
@@ -100,12 +100,12 @@ async function init() {
       }
       preFlag = 0;
 
-      fs.appendFile("./EOGSampleFile/user1/file49-1.txt", data.data[1].toString(), 'utf8', function (error) {
+      fs.appendFile("./EOGSampleFile/user2/file49-1.txt", data.data[1].toString(), 'utf8', function (error) {
         if (error) {
           console.log(error)
         }
       })
-      fs.appendFile("./EOGSampleFile/user1/file49-2.txt", data.data[2].toString(), 'utf8', function (error) {
+      fs.appendFile("./EOGSampleFile/user2/file49-2.txt", data.data[2].toString(), 'utf8', function (error) {
         if (error) {
           console.log(error)
         }
@@ -113,12 +113,12 @@ async function init() {
       count++;
 
       if(count <= json.count) {
-        fs.appendFile("./EOGSampleFile/user1/file49-1.txt", ',', 'utf8', function (error) {
+        fs.appendFile("./EOGSampleFile/user2/file49-1.txt", ',', 'utf8', function (error) {
           if (error) {
             console.log(error)
           }
         })
-        fs.appendFile("./EOGSampleFile/user1/file49-2.txt", ',', 'utf8', function (error) {
+        fs.appendFile("./EOGSampleFile/user2/file49-2.txt", ',', 'utf8', function (error) {
           if (error) {
             console.log(error)
           }
