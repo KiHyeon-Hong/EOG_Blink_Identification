@@ -58,16 +58,16 @@ var check = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 for(let i = 0; i < 1; i++){
   for(let j = 0; j < 50; j++){
-    let regFile0 = fs.readFileSync('./EOGSampleFile/user' + (i+1) + '/file' + j + '-1.txt', 'utf8');
-    let regFile1 = fs.readFileSync('./EOGSampleFile/user' + (i+1) + '/file' + j + '-2.txt', 'utf8');
+    let regFile0 = fs.readFileSync('./EOGSampleFile/user' + (i+2) + '/file' + j + '-1.txt', 'utf8');
+    let regFile1 = fs.readFileSync('./EOGSampleFile/user' + (i+2) + '/file' + j + '-2.txt', 'utf8');
 
     register.register(regFile0, regFile1);
 
     for(let k = 0; k < 1; k++){
       for(let l = 0; l < 50; l++){
         console.log('user' + (i+1) + '과 user' + (k+1) + ' 비교');
-        let fp1 = fs.readFileSync('./EOGSampleFile/user' + (k+1) + '/file' + l + '-1.txt', 'utf8');
-        let fp2 = fs.readFileSync('./EOGSampleFile/user' + (k+1) + '/file' + l + '-2.txt', 'utf8');
+        let fp1 = fs.readFileSync('./EOGSampleFile/user' + (k+2) + '/file' + l + '-1.txt', 'utf8');
+        let fp2 = fs.readFileSync('./EOGSampleFile/user' + (k+2) + '/file' + l + '-2.txt', 'utf8');
 
         let result1 = identification.identification(fp1, fp2);
 
