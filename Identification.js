@@ -347,39 +347,39 @@ var identification = function(fp1, fp2) {
   originToken1 = JSON.parse(originToken1);
   originToken2 = JSON.parse(originToken2);
 
-  console.log("==============================");
-
-  console.log("HP : " + (token1.HP / originToken1.HP));
-  console.log("LP : " + (token1.LP / originToken1.LP));
-  console.log("LHPL : " + (token1.LHPL / originToken1.LHPL));
-  console.log("LLPL : " + (token1.LLPL / originToken1.LLPL));
-  console.log("HPL : " + (token1.HPL / originToken1.HPL));
-  console.log("LPL : " + (token1.LPL / originToken1.LPL));
-  console.log("LHPG : " + (token1.LHPG / originToken1.LHPG));
-  console.log("LLPG : " + (token1.LLPG / originToken1.LLPG));
-  console.log("RHPG : " + (token1.RHPG / originToken1.RHPG));
-  console.log("RLPG : " + (token1.RLPG / originToken1.RLPG));
-
-  console.log("blink : " + (token1.blink / originToken1.blink));
-  console.log("notBlink : " + (token1.notBlink / originToken1.notBlink));
-
-  console.log("==============================");
-  console.log("HP : " + (token2.HP / originToken2.HP));
-  console.log("LP : " + (token2.LP / originToken2.LP));
-  console.log("LHPL : " + (token2.LHPL / originToken2.LHPL));
-  console.log("LLPL : " + (token2.LLPL / originToken2.LLPL));
-  console.log("HPL : " + (token2.HPL / originToken2.HPL));
-  console.log("LPL : " + (token2.LPL / originToken2.LPL));
-  console.log("LHPG : " + (token2.LHPG / originToken2.LHPG));
-  console.log("LLPG : " + (token2.LLPG / originToken2.LLPG));
-  console.log("RHPG : " + (token2.RHPG / originToken2.RHPG));
-  console.log("RLPG : " + (token2.RLPG / originToken2.RLPG));
-
-  console.log("blink : " + (token2.blink / originToken2.blink));
-  console.log("notBlink : " + (token2.notBlink / originToken2.notBlink));
-  console.log("==============================");
-  console.log();
-  console.log();
+  // console.log("==============================");
+  //
+  // console.log("HP : " + (token1.HP / originToken1.HP));
+  // console.log("LP : " + (token1.LP / originToken1.LP));
+  // console.log("LHPL : " + (token1.LHPL / originToken1.LHPL));
+  // console.log("LLPL : " + (token1.LLPL / originToken1.LLPL));
+  // console.log("HPL : " + (token1.HPL / originToken1.HPL));
+  // console.log("LPL : " + (token1.LPL / originToken1.LPL));
+  // console.log("LHPG : " + (token1.LHPG / originToken1.LHPG));
+  // console.log("LLPG : " + (token1.LLPG / originToken1.LLPG));
+  // console.log("RHPG : " + (token1.RHPG / originToken1.RHPG));
+  // console.log("RLPG : " + (token1.RLPG / originToken1.RLPG));
+  //
+  // console.log("blink : " + (token1.blink / originToken1.blink));
+  // console.log("notBlink : " + (token1.notBlink / originToken1.notBlink));
+  //
+  // console.log("==============================");
+  // console.log("HP : " + (token2.HP / originToken2.HP));
+  // console.log("LP : " + (token2.LP / originToken2.LP));
+  // console.log("LHPL : " + (token2.LHPL / originToken2.LHPL));
+  // console.log("LLPL : " + (token2.LLPL / originToken2.LLPL));
+  // console.log("HPL : " + (token2.HPL / originToken2.HPL));
+  // console.log("LPL : " + (token2.LPL / originToken2.LPL));
+  // console.log("LHPG : " + (token2.LHPG / originToken2.LHPG));
+  // console.log("LLPG : " + (token2.LLPG / originToken2.LLPG));
+  // console.log("RHPG : " + (token2.RHPG / originToken2.RHPG));
+  // console.log("RLPG : " + (token2.RLPG / originToken2.RLPG));
+  //
+  // console.log("blink : " + (token2.blink / originToken2.blink));
+  // console.log("notBlink : " + (token2.notBlink / originToken2.notBlink));
+  // console.log("==============================");
+  // console.log();
+  // console.log();
 
   var json = fs.readFileSync('./config/config.json', 'utf8');
   json = JSON.parse(json);
