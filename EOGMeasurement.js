@@ -2,7 +2,7 @@
   설정된 시간만큼 뇌파 데이터를 측정하고 잡파를 제거한 후 저장하는 프로그램
   뇌파 측정 시간 후 프로그램 종료
 
-  @author Ki-Hyeon Hong
+  @author Gachon University, NAYUNTECH
   @version 1.0
   @뇌파 데이터 append 시 발생하는 저장 오류 수정
 */

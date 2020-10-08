@@ -1,7 +1,7 @@
 /*
   개인식별 서비스 개인식별 등록 모듈
 
-  @author Ki-Hyeon Hong
+  @author Gachon University, NAYUNTECH
   @version 1.0
   @개인식별 서비스 제공을 위한 개인식별 성능 고도화
 */

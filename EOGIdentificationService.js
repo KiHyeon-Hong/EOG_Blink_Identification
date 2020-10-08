@@ -1,7 +1,7 @@
 /*
   개인식별 서비스 제공을 위한 뇌파 데이터 측정 후 서비스 호출 과정
 
-  @author Ki-Hyeon Hong
+  @author Gachon University, NAYUNTECH
   @version 1.0
   @개인식별 서비스 제공을 위한 템플릿 작성
 */

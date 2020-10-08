@@ -1,7 +1,7 @@
 /*
   개인식별 서비스 제공을 위한 환경설정 상수 수정
 
-  @author Ki-Hyeon Hong
+  @author Gachon University, NAYUNTECH
   @version 1.0
   @뇌파 측정 시간을 위한 count 상수 변경 기능 추가
 */

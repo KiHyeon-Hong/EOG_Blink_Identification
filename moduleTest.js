@@ -1,7 +1,7 @@
 /*
   뇌파 측정 없이 모듈 테스트를 위한 모듈
 
-  @author Ki-Hyeon Hong
+  @author Gachon University, NAYUNTECH
   @version 1.0
   @테스트 코드 작성
 */
