@@ -1,22 +1,22 @@
-const gpio = require('node-wiring-pi');
-const LED = 29;
+const fs = require('fs');
+const identification = require('./Identification.js');
+const register = require('./Register.js');
 
-const ledOn = () => {
-  gpio.digitalWrite(LED, 1);
-  setTimeout(ledOff, 1000);
-}
+//측정한 뇌파 데이터 불러오기
+var fp1 = fs.readFileSync('./data/dataCh2.txt', 'utf8');
+var fp2 = fs.readFileSync('./data/dataCh3.txt', 'utf8');
 
-const ledOff = () => {
-  gpio.digitalWrite(LED, 0);
-  setTimeout(ledOn, 1000);
-}
 
-process.on('exit', () => {
-  gpio.digitalWrite(LED, 0);
-  process.exit();
-});
+/*
+  개인식별 서비스 호출
 
-gpio.setup('wpi');
-gpio.pinMode(LED, gpio.OUTPUT);
+  @param var fp1 : fp1에서 측정한 뇌파 데이터, var fp2 : fp2에서 측정한 뇌파 데이터
+  @return 개인식별 서비스 실행 결과 (true : 개인식별 결과 서비스 사용자, false : 개인식별 결과 서비스 사용자가 아님)
+  @exception 없음
+*/
+var result = register.register(fp1, fp2);
+//var result = identification.identification(fp1, fp2);
+//var result = config.count(15);
 
-setTimeout(ledOn, 1000);
+//개인식별 서비스 결과 확인
+console.log(result);
