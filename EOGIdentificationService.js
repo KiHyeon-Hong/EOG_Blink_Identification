@@ -45,8 +45,8 @@ const main = () => {
     @return 개인식별 서비스 실행 결과 (true : 개인식별 결과 서비스 사용자, false : 개인식별 결과 서비스 사용자가 아님)
     @exception 없음
   */
-  //var result = register.register(fp1, fp2);
-  var result = identification.identification(fp1, fp2);
+  var result = register.register(fp1, fp2);
+  //var result = identification.identification(fp1, fp2);
   //var result = config.count(15);
 
   //개인식별 서비스 결과 확인
