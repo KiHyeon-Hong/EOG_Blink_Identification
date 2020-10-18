@@ -132,6 +132,9 @@ async function init() {
       }
       preFlag = 1;
     }
+
+    let myData = data.data[1][0];
+    console.log('측정 데이터 : ' + myData);
   })
 }
 
