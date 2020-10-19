@@ -37,8 +37,8 @@ var preFlag = 0;
 var count = 0;
 
 //뇌파 데이터 측정 전에 현재 파일에 기록되어 있는 데이터를 제거한다
-fs.writeFileSync('./EOGSampleFile/user3/file0-1.txt', "", 'utf8');
-fs.writeFileSync('./EOGSampleFile/user3/file0-2.txt', "", 'utf8');
+fs.writeFileSync('./EOGSampleFile/user3/file5-1.txt', "", 'utf8');
+fs.writeFileSync('./EOGSampleFile/user3/file5-2.txt', "", 'utf8');
 
 /*
   Ganglion board와 연동 후 뇌파 데이터 측정 시작
@@ -94,18 +94,18 @@ async function init() {
     }
 
     if(flag == 0) {
-      if(preFlag == 1) {
+      if(preFlag == 1 || (preFlag == 0 && count == 0)) {
         console.log('수면케어 안대 착용이 정상적입니다(데이터를 기록합니다).');
         gpio.digitalWrite(LED, 1);
       }
       preFlag = 0;
 
-      fs.appendFile('./EOGSampleFile/user3/file0-1.txt', data.data[1].toString(), 'utf8', function (error) {
+      fs.appendFile('./EOGSampleFile/user3/file5-1.txt', data.data[1].toString(), 'utf8', function (error) {
         if (error) {
           console.log(error)
         }
       })
-      fs.appendFile('./EOGSampleFile/user3/file0-2.txt', data.data[2].toString(), 'utf8', function (error) {
+      fs.appendFile('./EOGSampleFile/user3/file5-2.txt', data.data[2].toString(), 'utf8', function (error) {
         if (error) {
           console.log(error)
         }
@@ -113,12 +113,12 @@ async function init() {
       count++;
 
       if(count <= json.count) {
-        fs.appendFile('./EOGSampleFile/user3/file0-1.txt', ',', 'utf8', function (error) {
+        fs.appendFile('./EOGSampleFile/user3/file5-1.txt', ',', 'utf8', function (error) {
           if (error) {
             console.log(error)
           }
         })
-        fs.appendFile('./EOGSampleFile/user3/file0-2.txt', ',', 'utf8', function (error) {
+        fs.appendFile('./EOGSampleFile/user3/file5-2.txt', ',', 'utf8', function (error) {
           if (error) {
             console.log(error)
           }

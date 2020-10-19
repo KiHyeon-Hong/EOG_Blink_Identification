@@ -5,23 +5,6 @@
   @version 1.0
   @테스트 코드 작성
 */
-
-// const fs = require('fs');
-// const identification = require('./Identification.js');
-// const register = require('./Register.js');
-// const config = require('./config.js');
-//
-//
-// var fp1 = fs.readFileSync('./data/dataCh2.txt', 'utf8');
-// var fp2 = fs.readFileSync('./data/dataCh3.txt', 'utf8');
-//
-// //var result = register.register(fp1, fp2);
-// //var result = identification.identification(fp1, fp2);
-// var result = config.count(15);
-//
-// console.log(result);
-
-
 const fs = require('fs');
 const identification = require('./Identification.js');
 const register = require('./Register.js');
@@ -67,9 +50,9 @@ for(let count = 0; count < 100; count++) {
     }
   }
 
-  // console.log("sucSuc : " + sucSuc);
-  // console.log("sucFail : " + sucFail);
-  // console.log("fail : " + fail);
+  console.log("sucSuc : " + sucSuc);
+  console.log("sucFail : " + sucFail);
+  console.log("fail : " + fail);
 
   console.log('정확도 : ' + (sucSuc + sucFail) + '%');
 

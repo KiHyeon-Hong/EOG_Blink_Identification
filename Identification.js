@@ -378,8 +378,6 @@ var identification = function(fp1, fp2) {
   console.log("blink : " + (token2.blink / originToken2.blink));
   console.log("notBlink : " + (token2.notBlink / originToken2.notBlink));
   console.log("==============================");
-  console.log();
-  console.log();
 
   var json = fs.readFileSync('./config/config.json', 'utf8');
   json = JSON.parse(json);

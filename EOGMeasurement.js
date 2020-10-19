@@ -94,7 +94,7 @@ async function init() {
     }
 
     if(flag == 0) {
-      if(preFlag == 1) {
+      if((preFlag == 1) || (preFlag == 0 && count == 0)) {
         console.log('수면케어 안대 착용이 정상적입니다(데이터를 기록합니다).');
         gpio.digitalWrite(LED, 1);
       }
