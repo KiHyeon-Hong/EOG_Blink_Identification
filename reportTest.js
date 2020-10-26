@@ -45,33 +45,30 @@ for(let i = 0; i < 1; i++){
       endTime = new Date().getTime();
 
       count++;
-      console.log(count + "번 째 개인식별 수행 시간 : " + ((endTime - startTime) / 1000) + '초 \n\n');
-      //fs.appendFileSync("./LogFile/measureTimeTest.log", count + "번 째 개인식별 수행 시간 : " + ((endTime - startTime) / 1000) + '초 \n', 'utf8',);
-
 
       if((i == k) && (result1 == true)) {
         //사용자를 해딩 사용자로 올바르게 판단한 경우
         sucSuc++;
-        console.log('피험자' + (k+1) + '번 식별 결과 : 성공(등록된 사용자로 인식) \n');
-        fs.appendFileSync("./LogFile/identificationMeasureTimeTest.log", '피험자' + (k+1) + '번 식별 결과 : 성공(등록된 사용자로 인식) \n', 'utf8',);
+        console.log(count + '.  피험자' + (k+1) + '번 식별 결과 : 성공(등록된 사용자로 인식),  개인식별 수행 시간 : ' + (30 + ((endTime - startTime) / 1000)) + '초 \n');
+        fs.appendFileSync("./LogFile/identificationMeasureTimeTest.log", count + '.  피험자' + (k+1) + '번 식별 결과 : 성공(등록된 사용자로 인식),  개인식별 수행 시간 : ' + (30 + ((endTime - startTime) / 1000)) + '초 \n', 'utf8',);
       }
       else if((i != k) && (result1 != true)) {
         //비 사용자를 비 사용자로 올바르게 판단한 경우
         sucFail++;
-        console.log('피험자' + (k+1) + '번 식별 결과 : 성공(등록된 사용자가 아님),  식별 시간 : ' + (30 + ((endTime - startTime) / 1000)) + '초 \n');
-        fs.appendFileSync("./LogFile/identificationMeasureTimeTest.log", '피험자' + (k+1) + '번 식별 결과 : 성공(등록된 사용자가 아님),  식별 시간 : ' + (30 + ((endTime - startTime) / 1000)) + '초 \n', 'utf8',);
+        console.log(count + '.  피험자' + (k+1) + '번 식별 결과 : 성공(등록된 사용자가 아님),  개인식별 수행 시간 : ' + (30 + ((endTime - startTime) / 1000)) + '초 \n');
+        fs.appendFileSync("./LogFile/identificationMeasureTimeTest.log", count + '.  피험자' + (k+1) + '번 식별 결과 : 성공(등록된 사용자가 아님),  개인식별 수행 시간 : ' + (30 + ((endTime - startTime) / 1000)) + '초 \n', 'utf8',);
       }
       else if((i == k) && (result1 != true)) {
         //사용자를 비 사용자로 판단한경우
         fail++;
-        console.log('피험자' + (k+1) + '번 식별 결과 : 오류 발생(등록된 사용자를 식별하지 못함) \n');
-        fs.appendFileSync("./LogFile/identificationMeasureTimeTest.log", '피험자' + (k+1) + '번 식별 결과 : 오류 발생(등록된 사용자를 식별하지 못함) \n', 'utf8',);
+        console.log(count + '.  피험자' + (k+1) + '번 식별 결과 : 오류 발생(등록된 사용자를 식별하지 못함),  개인식별 수행 시간 : ' + (30 + ((endTime - startTime) / 1000)) + '초 \n');
+        fs.appendFileSync("./LogFile/identificationMeasureTimeTest.log", count + '.  피험자' + (k+1) + '번 식별 결과 : 오류 발생(등록된 사용자를 식별하지 못함),  개인식별 수행 시간 : ' + (30 + ((endTime - startTime) / 1000)) + '초 \n', 'utf8',);
       }
       else if((i != k) && (result1 == true)) {
         //비 사용자를 사용자로 판단한 경우
         failFail++;
-        console.log('피험자' + (k+1) + '번 식별 결과 : 오류 발생(등록되지 않은 사용자를 오인함) \n');
-        fs.appendFileSync("./LogFile/identificationMeasureTimeTest.log", '피험자' + (k+1) + '번 식별 결과 : 오류 발생(등록되지 않은 사용자를 오인함) \n', 'utf8',);
+        console.log(count + '.  피험자' + (k+1) + '번 식별 결과 : 오류 발생(등록되지 않은 사용자를 오인함),  개인식별 수행 시간 : ' + (30 + ((endTime - startTime) / 1000)) + '초 \n');
+        fs.appendFileSync("./LogFile/identificationMeasureTimeTest.log", count + '.  피험자' + (k+1) + '번 식별 결과 : 오류 발생(등록되지 않은 사용자를 오인함),  개인식별 수행 시간 : ' + (30 + ((endTime - startTime) / 1000)) + '초 \n', 'utf8',);
       }
     }
   }
