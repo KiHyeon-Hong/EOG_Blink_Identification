@@ -402,9 +402,9 @@ var identification = function(fp1, fp2) {
   fs.appendFileSync("./LogFile/identificationMeasureTimeTestLog.log", "RHPG : " + (token1.RHPG / originToken1.RHPG) + '\n', 'utf8');
   console.log("RLPG : " + (token1.RLPG / originToken1.RLPG));
   fs.appendFileSync("./LogFile/identificationMeasureTimeTestLog.log", "RLPG : " + (token1.RLPG / originToken1.RLPG) + '\n', 'utf8');
-  console.log("blink : " + (token1.blink / originToken1.blink));
+  //console.log("blink : " + (token1.blink / originToken1.blink));
   fs.appendFileSync("./LogFile/identificationMeasureTimeTestLog.log", "blink : " + (token1.blink / originToken1.blink) + '\n', 'utf8');
-  console.log("notBlink : " + (token1.notBlink / originToken1.notBlink));
+  //console.log("notBlink : " + (token1.notBlink / originToken1.notBlink));
   fs.appendFileSync("./LogFile/identificationMeasureTimeTestLog.log", "notBlink : " + (token1.notBlink / originToken1.notBlink) + '\n', 'utf8');
 
   console.log("==============================");
@@ -430,9 +430,9 @@ var identification = function(fp1, fp2) {
   fs.appendFileSync("./LogFile/identificationMeasureTimeTestLog.log", "RHPG : " + (token2.RHPG / originToken2.RHPG) + '\n', 'utf8');
   console.log("RLPG : " + (token2.RLPG / originToken2.RLPG));
   fs.appendFileSync("./LogFile/identificationMeasureTimeTestLog.log", "RLPG : " + (token2.RLPG / originToken2.RLPG) + '\n', 'utf8');
-  console.log("blink : " + (token2.blink / originToken2.blink));
+  //console.log("blink : " + (token2.blink / originToken2.blink));
   fs.appendFileSync("./LogFile/identificationMeasureTimeTestLog.log", "blink : " + (token2.blink / originToken2.blink) + '\n', 'utf8');
-  console.log("notBlink : " + (token2.notBlink / originToken2.notBlink));
+  //console.log("notBlink : " + (token2.notBlink / originToken2.notBlink));
   fs.appendFileSync("./LogFile/identificationMeasureTimeTestLog.log", "notBlink : " + (token2.notBlink / originToken2.notBlink) + '\n', 'utf8');
 
   console.log("==============================");
